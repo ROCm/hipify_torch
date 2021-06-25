@@ -32,6 +32,18 @@ parser.add_argument(
     action='store_true',
     help="Only print the list of hipify files.")
 
+parser.add_argument(
+    '--includes',
+    default=['*'],
+    help="Source files to be included for hipify")
+    required=False)
+
+parser.add_argument(
+    '--ignores',
+    default=[],
+    help="Source files to be excluded for hipify")
+    required=False)
+
 args = parser.parse_args()
 print(args)
 
@@ -45,16 +57,9 @@ out_dir = proj_dir
 if args.output_directory:
     out_dir = args.output_directory
 
-includes = [
-    '*'
-]
-
-ignores = [
-]
-
 hipify_python.hipify(
     project_directory=proj_dir,
     output_directory=out_dir,
-    includes=includes,
-    ignores=ignores,
+    includes=args.includes,
+    ignores=args.ignores,
     is_pytorch_extension=True)
