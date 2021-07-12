@@ -1,6 +1,6 @@
 # cmake file to trigger hipify
 
-# Get the hipify_cli.py source directory from current directory
+# Get the hipify_cli.py source directory from current directory by going to parent directory
 get_filename_component(HIPIFY_SCRIPTS_DIR ${CMAKE_CURRENT_LIST_DIR} DIRECTORY)
 set(HIPIFY_COMMAND
   ${HIPIFY_SCRIPTS_DIR}/hipify_cli.py
