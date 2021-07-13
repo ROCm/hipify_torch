@@ -16,14 +16,14 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     '--project-directory',
     type=str,
-    default=os.getcwd(),
+    default=None,
     help="The root of the project. (default: %(default)s)",
     required=False)
 
 parser.add_argument(
     '--output-directory',
     type=str,
-    default=os.getcwd(),
+    default=None,
     help="The Directory to Store the Hipified Project",
     required=False)
 
@@ -35,28 +35,35 @@ parser.add_argument(
 parser.add_argument(
     '--includes',
     default=['*'],
-    help="Source files to be included for hipify")
+    help="Source files to be included for hipify",
     required=False)
 
 parser.add_argument(
     '--ignores',
     default=[],
-    help="Source files to be excluded for hipify")
+    help="Source files to be excluded for hipify",
     required=False)
 
 args = parser.parse_args()
 print(args)
 
-amd_build_dir = os.path.dirname(os.path.realpath(__file__))
-proj_dir = os.path.join(os.path.dirname(os.path.dirname(amd_build_dir)))
-
-if args.project_directory:
+# set directories
+cwd = os.getcwd()
+if args.project_directory and args.output_directory:
     proj_dir = args.project_directory
-
-out_dir = proj_dir
-if args.output_directory:
     out_dir = args.output_directory
+elif args.project_directory and not args.output_directory:
+    proj_dir = args.project_directory
+    out_dir = proj_dir
+elif not args.project_directory and args.output_directory:
+    proj_dir = cwd
+    out_dir = args.output_directory
+else:
+    proj_dir = cwd
+    out_dir = cwd
 
+# call hipify
+print(proj_dir, out_dir, args.includes, args.ignores)
 hipify_python.hipify(
     project_directory=proj_dir,
     output_directory=out_dir,
