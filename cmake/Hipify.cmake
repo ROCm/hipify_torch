@@ -1,5 +1,7 @@
 # cmake file to trigger hipify
 
+cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+
 set(DICT_FILE ${CMAKE_BINARY_DIR}/hipify_output_dict_dump.txt)
 
 # Get the hipify_cli.py source directory from current directory by going to parent directory
@@ -27,7 +29,6 @@ function(update_list_with_hip_files FILE_SUFFIX DICT_FILE)
   set(_EXE_COMMAND
     ${_SCRIPTS_DIR}/replace_cuda_with_hip_files.py
     --io-file ${_FULL_FILE_NAME}
-    #    --dump-dict-file ${CMAKE_BINARY_DIR}/hipify_output_dict_dump.txt)
     --dump-dict-file ${DICT_FILE})
   execute_process(
     COMMAND ${_EXE_COMMAND}
