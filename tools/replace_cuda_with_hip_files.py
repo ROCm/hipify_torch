@@ -16,7 +16,7 @@ def main():
     parser.add_argument(
         '--io-file',
         type=str,
-        help="Input file containing list of files which will overwritten by hipified file names",
+        help="Input file containing list of files which will be overwritten by hipified file names",
         required=True)
 
     parser.add_argument(
