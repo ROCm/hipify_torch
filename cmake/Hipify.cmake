@@ -3,13 +3,14 @@
 cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 
 set(DICT_FILE ${CMAKE_BINARY_DIR}/hipify_output_dict_dump.txt)
+set(_temp_file_cuda_to_hip_list "cuda_to_hip_list")
 
 # Get the hipify_cli.py source directory from current directory by going to parent directory
 get_filename_component(HIPIFY_DIR ${CMAKE_CURRENT_LIST_DIR} DIRECTORY)
 
 function(write_file_list FILE_SUFFIX INPUT_LIST)
   message(STATUS "Writing ${FILE_SUFFIX} into file - file_${FILE_SUFFIX}.txt")
-  set(_FULL_FILE_NAME "${CMAKE_BINARY_DIR}/cuda_to_hip_list_${FILE_SUFFIX}.txt")
+  set(_FULL_FILE_NAME "${CMAKE_BINARY_DIR}/${_temp_file_cuda_to_hip_list}_${FILE_SUFFIX}.txt")
   file(WRITE ${_FULL_FILE_NAME} "")
   foreach(_SOURCE_FILE ${INPUT_LIST})
     file(APPEND ${_FULL_FILE_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/${_SOURCE_FILE})
@@ -18,14 +19,14 @@ function(write_file_list FILE_SUFFIX INPUT_LIST)
 endfunction()
 
 function(get_file_list FILE_SUFFIX OUTPUT_LIST)
-  set(_FULL_FILE_NAME "${CMAKE_BINARY_DIR}/cuda_to_hip_list_${FILE_SUFFIX}.txt")
+  set(_FULL_FILE_NAME "${CMAKE_BINARY_DIR}/${_temp_file_cuda_to_hip_list}_${FILE_SUFFIX}.txt")
   file(STRINGS ${_FULL_FILE_NAME} _FILE_LIST)
   set(${OUTPUT_LIST}_HIP ${_FILE_LIST} PARENT_SCOPE)
 endfunction()
 
 function(update_list_with_hip_files FILE_SUFFIX DICT_FILE)
   set(_SCRIPTS_DIR ${HIPIFY_DIR}/tools)
-  set(_FULL_FILE_NAME "${CMAKE_BINARY_DIR}/cuda_to_hip_list_${FILE_SUFFIX}.txt")
+  set(_FULL_FILE_NAME "${CMAKE_BINARY_DIR}/${_temp_file_cuda_to_hip_list}_${FILE_SUFFIX}.txt")
   set(_EXE_COMMAND
     ${_SCRIPTS_DIR}/replace_cuda_with_hip_files.py
     --io-file ${_FULL_FILE_NAME}

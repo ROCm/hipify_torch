@@ -16,13 +16,13 @@ def main():
     parser.add_argument(
         '--io-file',
         type=str,
-        help="Input file to read the list of files",
+        help="Input file containing list of files which will overwritten by hipified file names",
         required=True)
 
     parser.add_argument(
         '--dump-dict-file',
         type=str,
-        help="The Directory when the dictionary output of hipified is stored",
+        help="The file path where the dictionary output of hipified is stored",
         required=True)
 
     args = parser.parse_args()
