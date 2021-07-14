@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 
-set(DICT_FILE ${CMAKE_BINARY_DIR}/hipify_output_dict_dump.txt)
+set(HIPIFY_DICT_FILE ${CMAKE_BINARY_DIR}/hipify_output_dict_dump.txt)
 set(_temp_file_cuda_to_hip_list "cuda_to_hip_list")
 
 # Get the hipify_cli.py source directory from current directory by going to parent directory
@@ -24,13 +24,13 @@ function(get_file_list FILE_SUFFIX OUTPUT_LIST)
   set(${OUTPUT_LIST}_HIP ${_FILE_LIST} PARENT_SCOPE)
 endfunction()
 
-function(update_list_with_hip_files FILE_SUFFIX DICT_FILE)
+function(update_list_with_hip_files FILE_SUFFIX HIPIFY_DICT_FILE)
   set(_SCRIPTS_DIR ${HIPIFY_DIR}/tools)
   set(_FULL_FILE_NAME "${CMAKE_BINARY_DIR}/${_temp_file_cuda_to_hip_list}_${FILE_SUFFIX}.txt")
   set(_EXE_COMMAND
     ${_SCRIPTS_DIR}/replace_cuda_with_hip_files.py
     --io-file ${_FULL_FILE_NAME}
-    --dump-dict-file ${DICT_FILE})
+    --dump-dict-file ${HIPIFY_DICT_FILE})
   execute_process(
     COMMAND ${_EXE_COMMAND}
     RESULT_VARIABLE _return_value)
@@ -39,9 +39,9 @@ function(update_list_with_hip_files FILE_SUFFIX DICT_FILE)
   endif()
 endfunction()
 
-function(get_hipified_list INPUT_LIST OUTPUT_LIST FILE_SUFFIX DICT_FILE)
+function(get_hipified_list INPUT_LIST OUTPUT_LIST FILE_SUFFIX HIPIFY_DICT_FILE)
   write_file_list("${FILE_SUFFIX}" "${INPUT_LIST}")
-  update_list_with_hip_files("${FILE_SUFFIX}" ${DICT_FILE})
+  update_list_with_hip_files("${FILE_SUFFIX}" ${HIPIFY_DICT_FILE})
   get_file_list("${FILE_SUFFIX}" __temp_srcs)
   set(${OUTPUT_LIST} ${__temp_srcs_HIP} PARENT_SCOPE)
 endfunction()
@@ -50,7 +50,7 @@ set(HIPIFY_COMMAND
   ${HIPIFY_DIR}/hipify_cli.py
   --project-directory ${PROJECT_SOURCE_DIR}
   --output-directory ${PROJECT_SOURCE_DIR}
-  --dump-dict-file ${DICT_FILE}
+  --dump-dict-file ${HIPIFY_DICT_FILE}
 )
 
 execute_process(
