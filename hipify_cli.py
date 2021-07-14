@@ -24,7 +24,7 @@ def main():
     parser.add_argument(
         '--output-directory',
         type=str,
-        default=os.getcwd(),
+        default=None,
         help="The Directory to Store the Hipified Project",
         required=False)
 
