@@ -22,7 +22,7 @@ def main():
     parser.add_argument(
         '--dump-dict-file',
         type=str,
-        help="The file path where the dictionary output of hipify is stored",
+        help="Input file where the dictionary output of hipify is stored",
         required=True)
 
     args = parser.parse_args()
