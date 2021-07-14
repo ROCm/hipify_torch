@@ -22,7 +22,7 @@ def main():
     parser.add_argument(
         '--dump-dict-file',
         type=str,
-        help="The file path where the dictionary output of hipified is stored",
+        help="The file path where the dictionary output of hipify is stored",
         required=True)
 
     args = parser.parse_args()
@@ -30,14 +30,14 @@ def main():
     file_obj = open(args.dump_dict_file, mode='r')
     json_string = file_obj.read()
     file_obj.close()
-    hipfied_result = json.loads(json_string)
+    hipified_result = json.loads(json_string)
 
     out_list = []
     with open(args.io_file) as inp_file:
         for line in inp_file:
             line = line.strip()
-            if line in hipfied_result:
-                out_list.append(hipfied_result[line]['hipified_path'])
+            if line in hipified_result:
+                out_list.append(hipified_result[line]['hipified_path'])
             else:
                 out_list.append(line)
 
