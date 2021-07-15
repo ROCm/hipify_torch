@@ -179,7 +179,7 @@ def preprocess_file_and_save_result(
     if show_progress:
         print(
             fin_path, "->",
-            result["hipified_path"], result["status"])
+            result["hipified_path"], result["status"], flush=True)
 
     if result["hipified_path"] is not None:
         HIPIFY_FINAL_RESULT[fin_path] = result
