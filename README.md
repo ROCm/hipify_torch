@@ -31,7 +31,10 @@ Above lines trigger the hipify script for all sources & header files under the `
 
 ## Through python
 
-Please `import hipify` present in `hipify_python.py` at `./hipify/`
+```
+from <path to hipify-torch>.hipify.hipify_python import hipify
+```
+Note: We are in the process of making hipify-torch as an installable python package, then `<path to hipify-torch>` isn't required.
 
 # Utilities
 
@@ -59,5 +62,8 @@ For the file suffix unique string, list variable name itself is passed as a stri
 
 # Intended users
 
-This module can be used to build [PyTorch](https://github.com/pytorch/pytorch), as well as PyTorch CUDA extensions such as [torchvision](https://github.com/pytorch/vision), [detectron2](https://github.com/facebookresearch/detectron2) etc.
-Even PyTorch submodules such as [tensorpipe](https://github.com/pytorch/tensorpipe), etc.
+This module can be used to
+- Build [PyTorch](https://github.com/pytorch/pytorch)
+- PyTorch CUDA extensions such as [torchvision](https://github.com/pytorch/vision), [detectron2](https://github.com/facebookresearch/detectron2) etc.
+- PyTorch submodules CMake-based such as [tensorpipe](https://github.com/pytorch/tensorpipe), etc.
+- And any other repo having CUDA files requiring to hipify to build on ROCm.
