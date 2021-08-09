@@ -49,7 +49,7 @@ function(get_hipified_list INPUT_LIST OUTPUT_LIST FILE_SUFFIX)
 ```
 - `INPUT_LIST` - CMake list containing a list of cuda file names
 - `OUTPUT_LIST` - Cmake list containing a list of hipified files names. If the cuda file name is not changed after hipify, then it is NOT replaced in the list.
-- `FILE_SUFFIX` - A string value, which is used as file name suffix during the execution. Provide a unique string for each call of `get_hipified_list()`.
+- `FILE_SUFFIX` - A string value, which is used as a file name suffix to a temporary file used during the processing of the `INPUT_LIST`, so recommend to provide a unique string for each call of `get_hipified_list()`.
 
 #### Usage example
 
