@@ -1315,7 +1315,7 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ("CU_LAUNCH_PARAM_END", ("HIP_LAUNCH_PARAM_END", CONV_TYPE, API_DRIVER)),
         (
             "CU_IPC_HANDLE_SIZE",
-            ("HIP_LAUNCH_PARAM_END", CONV_TYPE, API_DRIVER, HIP_UNSUPPORTED),
+            ("HIP_IPC_HANDLE_SIZE", CONV_TYPE, API_DRIVER, HIP_UNSUPPORTED),
         ),
         (
             "CU_MEMHOSTALLOC_DEVICEMAP",
@@ -2731,7 +2731,9 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ),
         ("cuInit", ("hipInit", CONV_INIT, API_DRIVER)),
         ("cuDriverGetVersion", ("hipDriverGetVersion", CONV_VERSION, API_DRIVER)),
+        ("cuCtxCreate", ("hipCtxCreate", CONV_CONTEXT, API_DRIVER)),
         ("cuCtxCreate_v2", ("hipCtxCreate", CONV_CONTEXT, API_DRIVER)),
+        ("cuCtxDestroy", ("hipCtxDestroy", CONV_CONTEXT, API_DRIVER)),
         ("cuCtxDestroy_v2", ("hipCtxDestroy", CONV_CONTEXT, API_DRIVER)),
         ("cuCtxGetApiVersion", ("hipCtxGetApiVersion", CONV_CONTEXT, API_DRIVER)),
         ("cuCtxGetCacheConfig", ("hipCtxGetCacheConfig", CONV_CONTEXT, API_DRIVER)),
@@ -2859,6 +2861,7 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ("CU_EVENT_DISABLE_TIMING", ("hipEventDisableTiming", CONV_EVENT, API_DRIVER)),
         ("CU_EVENT_INTERPROCESS", ("hipEventInterprocess", CONV_EVENT, API_DRIVER)),
         ("cuEventCreate", ("hipEventCreate", CONV_EVENT, API_DRIVER)),
+        ("cuEventDestroy", ("hipEventDestroy", CONV_EVENT, API_DRIVER)),
         ("cuEventDestroy_v2", ("hipEventDestroy", CONV_EVENT, API_DRIVER)),
         ("cuEventElapsedTime", ("hipEventElapsedTime", CONV_EVENT, API_DRIVER)),
         ("cuEventQuery", ("hipEventQuery", CONV_EVENT, API_DRIVER)),
@@ -2942,6 +2945,7 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             "cuStreamCreateWithPriority",
             ("hipStreamCreateWithPriority", CONV_STREAM, API_DRIVER, HIP_UNSUPPORTED),
         ),
+        ("cuStreamDestroy", ("hipStreamDestroy", CONV_STREAM, API_DRIVER)),
         ("cuStreamDestroy_v2", ("hipStreamDestroy", CONV_STREAM, API_DRIVER)),
         ("cuStreamGetFlags", ("hipStreamGetFlags", CONV_STREAM, API_DRIVER)),
         (
@@ -3052,6 +3056,7 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             ("hipMemcpyPeerAsync__", CONV_MEM, API_DRIVER, HIP_UNSUPPORTED),
         ),
         ("cuMemcpyPeer", ("hipMemcpyPeer__", CONV_MEM, API_DRIVER, HIP_UNSUPPORTED)),
+        ("cuMemFree", ("hipFree", CONV_MEM, API_DRIVER)),
         ("cuMemFree_v2", ("hipFree", CONV_MEM, API_DRIVER)),
         ("cuMemFreeHost", ("hipHostFree", CONV_MEM, API_DRIVER)),
         (
