@@ -34,6 +34,12 @@ def main():
         help="Only print the list of hipify files.")
 
     parser.add_argument(
+        '--header-include-dirs',
+        default=[],
+        help="Directories to add to search path for header includes",
+        required=False)
+
+    parser.add_argument(
         '--includes',
         default=['*'],
         help="Source files to be included for hipify",
@@ -63,6 +69,7 @@ def main():
         output_directory=out_dir,
         includes=args.includes,
         ignores=args.ignores,
+        header_include_dirs=args.header_include_dirs,
         is_pytorch_extension=True)
 
     if args.dump_dict_file:

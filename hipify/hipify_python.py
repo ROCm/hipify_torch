@@ -166,12 +166,13 @@ def preprocess_file_and_save_result(
         filepath: str,
         all_files: Iterable,
         includes: Iterable,
+        header_include_dirs: Iterable,
         stats: Dict[str, List],
         hip_clang_launch: bool,
         is_pytorch_extension: bool,
         clean_ctx: GeneratedFileCleaner,
         show_progress: bool) -> None:
-    result = preprocessor(output_directory, filepath, all_files, includes, stats,
+    result = preprocessor(output_directory, filepath, all_files, includes, header_include_dirs, stats,
                           hip_clang_launch, is_pytorch_extension, clean_ctx, show_progress)
 
     fin_path = os.path.abspath(os.path.join(output_directory, filepath))
@@ -189,6 +190,7 @@ def preprocess(
         output_directory: str,
         all_files: Iterable,
         includes: Iterable,
+        header_include_dirs: Iterable,
         show_detailed: bool = False,
         show_progress: bool = True,
         hip_clang_launch: bool = False,
@@ -208,7 +210,7 @@ def preprocess(
     stats: Dict[str, List] = {"unsupported_calls": [], "kernel_launches": []}
 
     for filepath in all_files:
-        preprocess_file_and_save_result(output_directory, filepath, all_files, includes, stats,
+        preprocess_file_and_save_result(output_directory, filepath, all_files, includes, header_include_dirs, stats,
                                         hip_clang_launch, is_pytorch_extension, clean_ctx, show_progress)
 
     print(bcolors.OKGREEN + "Successfully preprocessed all matching files." + bcolors.ENDC, file=sys.stderr)
@@ -562,6 +564,7 @@ def get_hip_file_path(filepath, is_pytorch_extension=False):
     orig_dirpath = dirpath
 
     dirpath = dirpath.replace('cuda', 'hip')
+    dirpath = dirpath.replace('CUDA', 'HIP')
     dirpath = dirpath.replace('THC', 'THH')
 
     root = root.replace('cuda', 'hip')
@@ -705,6 +708,7 @@ def preprocessor(
         filepath: str,
         all_files: Iterable,
         includes: Iterable,
+        header_include_dirs: Iterable,
         stats: Dict[str, List],
         hip_clang_launch: bool,
         is_pytorch_extension: bool,
@@ -767,8 +771,8 @@ def preprocessor(
                         header_filepath = header_path_to_check
                 # If not found, look in include dirs one by one and first match wins
                 if header_filepath is None:
-                    for include in includes:
-                        header_dir_to_check = os.path.join(output_directory, os.path.dirname(include))
+                    for header_include_dir in header_include_dirs:
+                        header_dir_to_check = os.path.join(output_directory, header_include_dir)
                         header_path_to_check = os.path.abspath(os.path.join(header_dir_to_check, f))
                         if os.path.exists(header_path_to_check):
                             header_dir = header_dir_to_check
@@ -780,7 +784,7 @@ def preprocessor(
                 if header_filepath not in HIPIFY_FINAL_RESULT:
                     preprocess_file_and_save_result(output_directory,
                                                     os.path.relpath(header_filepath, output_directory),
-                                                    all_files, includes, stats, hip_clang_launch, is_pytorch_extension,
+                                                    all_files, includes, header_include_dirs, stats, hip_clang_launch, is_pytorch_extension,
                                                     clean_ctx, show_progress)
                 value = HIPIFY_FINAL_RESULT[header_filepath]["hipified_path"]
                 assert value is not None
@@ -934,6 +938,7 @@ def hipify(
     show_detailed: bool = False,
     extensions: Iterable = (".cu", ".cuh", ".c", ".cc", ".cpp", ".h", ".in", ".hpp"),
     output_directory: str = "",
+    header_include_dirs: Iterable = (),
     includes: Iterable = (),
     extra_files: Iterable = (),
     out_of_place_only: bool = False,
@@ -976,6 +981,7 @@ def hipify(
         output_directory,
         all_files,
         includes,
+        header_include_dirs,
         show_detailed=show_detailed,
         show_progress=show_progress,
         hip_clang_launch=hip_clang_launch,
