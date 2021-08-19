@@ -822,7 +822,8 @@ def preprocessor(
 
     # Add hipify breadcrumb for C-style files to avoid re-hipification
     if fin_path != fout_path and match_extensions(fin_path, (".cu", ".cuh", ".c", ".cc", ".cpp", ".h", ".hpp")):
-        output_source = HIPIFY_C_BREADCRUMB + output_source
+        output_source_ascii=output_source.encode("ascii", "ignore").decode()
+        output_source = HIPIFY_C_BREADCRUMB + output_source_ascii
 
     do_write = True
     if os.path.exists(fout_path):
