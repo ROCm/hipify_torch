@@ -39,10 +39,15 @@ function(update_list_with_hip_files FILE_SUFFIX)
   endif()
 endfunction()
 
-function(get_hipified_list INPUT_LIST OUTPUT_LIST FILE_SUFFIX)
-  write_file_list("${FILE_SUFFIX}" "${INPUT_LIST}")
-  update_list_with_hip_files("${FILE_SUFFIX}")
-  get_file_list("${FILE_SUFFIX}" __temp_srcs)
+function(get_hipified_list INPUT_LIST OUTPUT_LIST)
+  string(RANDOM LENGTH 16 RAND_STRING)
+  set(TEMP_FILE_NAME "tmp_${RAND_STRING}")
+  file(REMOVE ${TEMP_FILE_NAME})
+
+  write_file_list("${TEMP_FILE_NAME}" "${INPUT_LIST}")
+  update_list_with_hip_files("${TEMP_FILE_NAME}")
+  get_file_list("${TEMP_FILE_NAME}" __temp_srcs)
+
   set(${OUTPUT_LIST} ${__temp_srcs_HIP} PARENT_SCOPE)
 endfunction()
 
