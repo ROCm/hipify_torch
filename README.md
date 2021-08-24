@@ -45,16 +45,15 @@ Note: We are in the process of making hipify-torch as an installable python pack
 This utility function can be used to get a list of hipified files from a list of cuda files.
 
 ```
-function(get_hipified_list INPUT_LIST OUTPUT_LIST FILE_SUFFIX)
+function(get_hipified_list INPUT_LIST OUTPUT_LIST)
 ```
 - `INPUT_LIST` - CMake list containing a list of cuda file names
 - `OUTPUT_LIST` - Cmake list containing a list of hipified files names. If the cuda file name is not changed after hipify, then it is NOT replaced in the list.
-- `FILE_SUFFIX` - A string value, which is used as a file name suffix to a temporary file used during the processing of the `INPUT_LIST`, so recommend to provide a unique string for each call of `get_hipified_list()`.
 
 #### Usage example
 
 ```
-get_hipified_list("${TP_CUDA_SRCS}" TP_CUDA_SRCS "TP_CUDA_SRCS")
+get_hipified_list("${TP_CUDA_SRCS}" TP_CUDA_SRCS)
 ```
 
 Here the `TP_CUDA_SRCS` in the input list containing cuda source files and doing a inplace update with  output list `TP_CUDA_SRCS`
