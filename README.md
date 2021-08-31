@@ -6,7 +6,7 @@ It can also "hipify" the header include statements in your source code to ensure
 
 <!-- toc -->
 
-- [Usage examples](#usage-examples)
+- [Interface](#interface)
   - [Through cmake](#through-cmake)
   - [Through python](#through-python)
 - [Utilities](#utilities)
@@ -15,19 +15,43 @@ It can also "hipify" the header include statements in your source code to ensure
 
 <!-- tocstop -->
 
-# Usage examples
+# Interface
 
 ## Through cmake
 
 From the parent `CMakeLists.txt` file include the `Hipify.cmake` file from `./cmake/Hipify.cmake`
 
+### API function -- ***hipify()***
+
+This function executes the hipify conversion logic on an input directory recursively.
+
+```
+function(hipify CUDA_SOURCE_DIR HIP_CONFIG_DIR CONFIG_FILE)
+```
+- Takes 3 optional arguments, either CUDA_SOURCE_DIR or CONFIG_FILE argument is required
+- `CUDA_SOURCE_DIR` - Full path of input cuda source directory which needs to be hipified.
+- `HIP_SOURCE_DIR` - Full path of output directory where the hipified files will be placed.
+                     If not provided, it is set to CUDA_SOURCE_DIR.
+- `CONFIG_FILE` - JSON format file, which provides additional arguments for hipify_cli.py file.
+                  When set, it is having higher precendence over CUDA_SOURCE_DIR/HIP_SOURCE_DIR.
+
+#### Usage examples
+
 ```
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/hipify-torch/cmake")
 include(Hipify)
-```
-Note: Update the path if the hipify-torch repo is cloned into different directory.
+# Example invocation - Provides cuda source dir and output hip source dir
+hipify(CUDA_SOURCE_DIR ${PROJECT_SOURCE_DIR} HIP_SOURCE_DIR "${PROJECT_SOURCE_DIR}/hip")
 
-Above lines trigger the hipify script for all sources & header files under the `PROJECT_SOURCE_DIR`
+# Example invocation - Only cuda source dir provide and output hip files into same dir.
+hipify(CUDA_SOURCE_DIR "/home/usr/project_sources/")
+
+# Example invocation - Through config file
+hipify(CONFIG_FILE "project_hipify_config_file.json")
+```
+Note: Update the CMAKE_MODULE_PATH list accordingly, if the hipify-torch repo is cloned into a different directory.
+
+Above lines trigger the hipify script for all sources & header files under the `CUDA_SOURCE_DIR`
 
 ## Through python
 
@@ -40,7 +64,7 @@ Note: We are in the process of making hipify-torch as an installable python pack
 
 ## CMake utility function
 
-### API function ***get_hipified_list()***
+### API function -- ***get_hipified_list()***
 
 This utility function can be used to get a list of hipified files from a list of cuda files.
 
