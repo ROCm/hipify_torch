@@ -74,7 +74,7 @@ function(hipify)
   set(singleValueArgs CUDA_SOURCE_DIR HIP_SOURCE_DIR CONFIG_FILE)
   set(multiValueArgs)
 
-  cmake_parse_arguments(HIPIFY "${flags}" "${singleValueArgs}" "${multVialueArgs}" ${ARGN})
+  cmake_parse_arguments(HIPIFY "${flags}" "${singleValueArgs}" "${multiValueArgs}" ${ARGN})
 
   if(HIPIFY_CONFIG_FILE)
     set(HIPIFY_COMMAND
