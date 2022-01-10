@@ -1,7 +1,7 @@
-# Hipify-torch
+# Hipify_torch
 
-hipify-torch is a python utility to convert CUDA C/C++ code into HIP C/C++ code.
-It is NOT a parser; it does a smart but basic search-and-replace based on CUDA-to-HIP mappings which are specified in the hipify-torch module.
+hipify_torch is a python utility to convert CUDA C/C++ code into HIP C/C++ code.
+It is NOT a parser; it does a smart but basic search-and-replace based on CUDA-to-HIP mappings which are specified in the hipify_torch module.
 It can also "hipify" the header include statements in your source code to ensure that it's the hipified header files that are included.
 
 <!-- toc -->
@@ -38,7 +38,7 @@ function(hipify CUDA_SOURCE_DIR HIP_CONFIG_DIR CONFIG_FILE)
 #### Usage examples
 
 ```
-list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/hipify-torch/cmake")
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/hipify_torch/cmake")
 include(Hipify)
 # Example invocation - Provides cuda source dir and output hip source dir
 hipify(CUDA_SOURCE_DIR ${PROJECT_SOURCE_DIR} HIP_SOURCE_DIR "${PROJECT_SOURCE_DIR}/hip")
@@ -49,16 +49,16 @@ hipify(CUDA_SOURCE_DIR "/home/usr/project_sources/")
 # Example invocation - Through config file
 hipify(CONFIG_FILE "project_hipify_config_file.json")
 ```
-Note: Update the CMAKE_MODULE_PATH list accordingly, if the hipify-torch repo is cloned into a different directory.
+Note: Update the CMAKE_MODULE_PATH list accordingly, if the hipify_torch repo is cloned into a different directory.
 
 Above lines trigger the hipify script for all sources & header files under the `CUDA_SOURCE_DIR`
 
 ## Through python
 
 ```
-from <path to hipify-torch>.hipify.hipify_python import hipify
+from <path to hipify_torch>.hipify.hipify_python import hipify
 ```
-Note: We are in the process of making hipify-torch as an installable python package, then `<path to hipify-torch>` isn't required.
+Note: We are in the process of making hipify_torch as an installable python package, then `<path to hipify_torch>` isn't required.
 
 # Utilities
 
