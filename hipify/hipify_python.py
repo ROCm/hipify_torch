@@ -195,7 +195,7 @@ def preprocess(
         show_progress: bool = True,
         hip_clang_launch: bool = False,
         is_pytorch_extension: bool = False,
-        clean_ctx: GeneratedFileCleaner = None) -> HipifyFinalResult:
+        clean_ctx: Optional[GeneratedFileCleaner] = None) -> HipifyFinalResult:
     """
     Call preprocessor on selected files.
 
@@ -1010,7 +1010,7 @@ def hipify(
     show_progress: bool = True,
     hip_clang_launch: bool = False,
     is_pytorch_extension: bool = False,
-    clean_ctx: GeneratedFileCleaner = None
+    clean_ctx: Optional[GeneratedFileCleaner] = None
 ) -> HipifyFinalResult:
     if project_directory == "":
         project_directory = os.getcwd()
