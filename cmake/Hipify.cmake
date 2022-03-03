@@ -79,8 +79,7 @@ function(hipify)
   if(HIPIFY_CONFIG_FILE)
     set(HIPIFY_COMMAND
       ${HIPIFY_DIR}/hipify_cli.py
-      --config-file ${HIPIFY_CONFIG_FILE}
-      --dump-dict-file ${HIPIFY_DICT_FILE}
+      --config-json ${HIPIFY_CONFIG_FILE}
     )
   elseif(HIPIFY_CUDA_SOURCE_DIR)
     if(NOT HIPIFY_HIP_SOURCE_DIR)

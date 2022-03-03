@@ -105,11 +105,11 @@ def main():
     print("project_directory :",project_directory , " output_directory: ", output_directory, " includes: ", includes, " ignores: ", ignores, " header_include_dirs: ", header_include_dirs)
 
     HipifyFinalResult = hipify_python.hipify(
-        project_directory,
-        output_directory,
-        includes,
-        ignores,
-        header_include_dirs,
+        project_directory=project_directory,
+        output_directory=output_directory,
+        includes=includes,
+        ignores=ignores,
+        header_include_dirs=header_include_dirs,
         is_pytorch_extension=True)
 
     if dump_dict_file:
