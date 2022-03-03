@@ -1,7 +1,7 @@
 {
     "project_directory": "/root/warp-transducer",
     "output_directory" : "/root/warp-transducer",
-    "header_include_dirs": [],
+    "header_include_dirs": ["include"],
     "includes":["src/*","test/*", "pytorch_binding/*", "tensorflow_binding/*", "include/*" ],
     "dump_dict_file":""
 }
