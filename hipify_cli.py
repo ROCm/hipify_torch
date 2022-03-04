@@ -93,7 +93,10 @@ def main():
             else:
                 dump_dict_file = False
     else:
-        project_directory=args.project_directory;
+        if args.project_directory is not None:
+            project_directory=args.project_directory;
+        else:
+            raise ValueError('If not using config json , project_directory should be mentioned in commadline')
         if args.output_directory:
             output_directory = args.output_directory
         else:
