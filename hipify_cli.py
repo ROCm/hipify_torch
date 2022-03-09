@@ -68,10 +68,10 @@ def main():
     if(os.path.exists(args.config_json)):
         with open(args.config_json) as jsonf:
             json_args = json.load(jsonf)
-            try:
+            if(json_args.get('project_directory') is not None)::
                 project_directory = json_args['project_directory']
-            except KeyError:
-                print("config json must contain project_directory")
+            else:
+                project_directory = os.getcwd()
             if(json_args.get('output_directory') is not None):
                 output_directory = json_args['output_directory']
             else:
