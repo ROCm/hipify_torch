@@ -71,7 +71,7 @@ def main():
             if(json_args.get('project_directory') is not None):
                 project_directory = json_args['project_directory']
             else:
-                project_directory = os.getcwd()
+                project_directory = os.path.dirname(args.config_json) 
             if(json_args.get('output_directory') is not None):
                 output_directory = json_args['output_directory']
             else:
