@@ -598,6 +598,7 @@ CUDA_INCLUDE_MAP = collections.OrderedDict(
         ("cub/device/device_radix_sort.cuh", ("hipcub/hipcub.hpp", CONV_INCLUDE, API_BLAS)),
         ("cub/device/device_reduce.cuh", ("hipcub/hipcub.hpp", CONV_INCLUDE, API_BLAS)),
         ("cub/device/device_scan.cuh", ("hipcub/hipcub.hpp", CONV_INCLUDE, API_BLAS)),
+        ("cub/device/device_select.cuh", ("hipcub/hipcub.hpp", CONV_INCLUDE, API_BLAS)),
         ("nvToolsExt.h", ("roctracer/roctx.h", CONV_INCLUDE, API_ROCTX)),
     ]
 )
@@ -7730,6 +7731,10 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ("nvrtcGetPTX", ("hiprtcGetCode", CONV_JIT, API_RTC)),
         ("nvrtcGetPTXSize", ("hiprtcGetCodeSize", CONV_JIT, API_RTC)),
         ("thrust::cuda", ("thrust::hip", CONV_MATH_FUNC, API_BLAS)),
+        (
+            "cudaCpuDeviceId",
+            ("hipCpuDeviceId", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED),
+        ),
         # The caffe2 directory does a string match; pytorch does a word-boundary match.
         # Patterns such as 'cub::' will not match for pytorch.
         # We list all current uses of cub symbols for this reason.
