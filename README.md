@@ -63,10 +63,10 @@ hipify_config.json
 
 {
 
-    "project_directory": <project_path>,   
-    "output_directory" : <project_path or specified_ouput_dir>,
-    "header_include_dirs": [<directories where headers are present>],    
-    "includes":[<directories to be hipified> ],    
+    "project_directory": <abs path to project>,   
+    "output_directory" : <project_directory or abs path specified_ouput_dir>,
+    "header_include_dirs": [<rel path to proj_dir of directories where headers are present>],    
+    "includes":[<rel path to proj_dir of directories to be hipified> ],    
     "dump_dict_file":"hipify_output_dict_dump.txt"    
 }
 
