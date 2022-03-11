@@ -52,6 +52,7 @@ def main():
 
     parser.add_argument(
         '--dump-dict-file',
+        default='hipify_output_dict_dump.txt', 
         type=str,
         help="The file to Store the return dict output after hipification",
         required=False)
@@ -91,7 +92,7 @@ def main():
             if(json_args.get('dump_dict_file') is not None):
                 dump_dict_file = json_args['dump_dict_file']
             else:
-                dump_dict_file = False
+                dump_dict_file = 'hipify_output_dict_dump.txt'
     else:
         if args.project_directory is not None:
             project_directory=args.project_directory;
