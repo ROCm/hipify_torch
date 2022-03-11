@@ -52,7 +52,6 @@ def main():
 
     parser.add_argument(
         '--dump-dict-file',
-        default='hipify_output_dict_dump.txt', 
         type=str,
         help="The file to Store the return dict output after hipification",
         required=False)
@@ -101,7 +100,7 @@ def main():
         includes=args.includes
         ignores=args.ignores
         header_include_dirs=args.header_include_dirs
-        dump_dict_file = args.dump_dict_file
+    dump_dict_file = args.dump_dict_file
     print("project_directory :",project_directory , " output_directory: ", output_directory, " includes: ", includes, " ignores: ", ignores, " header_include_dirs: ", header_include_dirs)
 
     HipifyFinalResult = hipify_python.hipify(
