@@ -59,8 +59,7 @@ def main():
     parser.add_argument(
         '--config-json',
         type=str,
-        default="",
-        help="The root of the project. (default: %(default)s)",
+        help="relative path of project_directory to config_json",
         required=False)
 
 
@@ -69,11 +68,11 @@ def main():
         with open(args.config_json) as jsonf:
             json_args = json.load(jsonf)
             if(json_args.get('project_directory') is not None):
-                project_directory = json_args['project_directory']
+                project_directory = os.path.join(os.path.dirname(args.config_json), json_args['project_directory'])
             else:
-                project_directory = os.path.dirname(args.config_json) 
+                raise ValueError('relative path to project_dir to config_json should be mentioned')
             if(json_args.get('output_directory') is not None):
-                output_directory = json_args['output_directory']
+                output_directory = os.path.join(os.path.dirname(args.config_json), json_args['output_directory'])
             else:
                 output_directory = project_directory
             if(json_args.get('includes') is not None):

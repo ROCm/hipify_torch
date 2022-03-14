@@ -63,8 +63,8 @@ hipify_config.json
 
 {
 
-    "project_directory": <abs path to project>,   
-    "output_directory" : <project_directory or abs path specified_ouput_dir>,
+    "project_directory": <relative path of project_directory to config_json>,   
+    "output_directory" : <relative path of output_directory to config_json>,
     "header_include_dirs": [<rel path to proj_dir of directories where headers are present>],    
     "includes":[<rel path to proj_dir of directories to be hipified> ],    
 }
