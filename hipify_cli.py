@@ -59,7 +59,7 @@ def main():
     parser.add_argument(
         '--config-json',
         type=str,
-        help="relative path of project_directory to config_json",
+        help="relative path of hipify config json which contains arguments to hipify",
         required=False)
 
 
