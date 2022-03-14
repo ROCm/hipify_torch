@@ -60,14 +60,14 @@ hipify_cli.py takes arguments through command line or a json file(hipify_config.
 python hipify_cli.py --config-json hipify_config.json
 ```
 hipify_config.json
+```json
 {
-
     "project_directory": <relative path of project_directory to config_json>,   
     "output_directory" : <relative path of output_directory to config_json>,
     "header_include_dirs": [<rel path to proj_dir of directories where headers are present>],    
     "includes":[<rel path to proj_dir of directories to be hipified> ],    
 }
-
+```
 ### hipify.hipify_python
 ```
 from <path to hipify_torch>.hipify.hipify_python import hipify
