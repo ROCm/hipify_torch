@@ -113,6 +113,8 @@ def main():
     if dump_dict_file:
         with open(dump_dict_file, 'w') as dict_file:
             dict_file.write(json.dumps(HipifyFinalResult))
+    else:
+        raise ValueError ('dump_dict_file should be defined')
 
 if __name__ == "__main__":
     main()
