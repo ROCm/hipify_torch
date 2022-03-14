@@ -59,8 +59,7 @@ hipify_cli.py takes arguments through command line or a json file(hipify_config.
 ```
 python hipify_cli.py --config-json hipify_config.json
 ```
-hipify_config.json 
-
+hipify_config.json
 {
 
     "project_directory": <relative path of project_directory to config_json>,   
