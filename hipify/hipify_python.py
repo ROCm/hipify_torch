@@ -146,7 +146,8 @@ def matched_files_iter(
             if "third_party" in dirs:
                 dirs.remove("third_party")
         for filename in filenames:
-            filepath = os.path.join(rel_dirpath, filename)
+            filepath = os.path.join(abs_dirpath, filename)
+            rel_filepath = os.path.join(rel_dirpath, filename)
             # We respect extensions, UNLESS you wrote the entire
             # filename verbatim, in which case we always accept it
             if (
@@ -155,9 +156,9 @@ def matched_files_iter(
                 and (match_extensions(filepath, extensions) or filepath in exact_matches)
             ):
                 if not is_pytorch_extension:  # for pytorch extensions, consider all files
-                    if not is_pytorch_file(filepath) and not is_caffe2_gpu_file(filepath):
+                    if not is_pytorch_file(rel_filepath) and not is_caffe2_gpu_file(rel_filepath):
                         continue
-                    if out_of_place_only and not is_out_of_place(filepath):
+                    if out_of_place_only and not is_out_of_place(rel_filepath):
                         continue
                 yield filepath
 
