@@ -72,7 +72,7 @@ endfunction()
 function(hipify)
   set(flags)
   set(singleValueArgs CUDA_SOURCE_DIR HIP_SOURCE_DIR CONFIG_FILE)
-  set(multiValueArgs)
+  set(multiValueArgs HEADER_INCLUDE_DIR)
 
   cmake_parse_arguments(HIPIFY "${flags}" "${singleValueArgs}" "${multiValueArgs}" ${ARGN})
 
@@ -90,6 +90,7 @@ function(hipify)
       ${HIPIFY_DIR}/hipify_cli.py
       --project-directory ${HIPIFY_CUDA_SOURCE_DIR}
       --output-directory ${HIPIFY_HIP_SOURCE_DIR}
+      --header-include-dirs [${HIPIFY_HEADER_INCLUDE_DIR}]
       --dump-dict-file ${HIPIFY_DICT_FILE}
     )
   else()
