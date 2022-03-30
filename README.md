@@ -54,7 +54,21 @@ Note: Update the CMAKE_MODULE_PATH list accordingly, if the hipify_torch repo is
 Above lines trigger the hipify script for all sources & header files under the `CUDA_SOURCE_DIR`
 
 ## Through python
-
+### hipify_cli.py 
+hipify_cli.py takes arguments through command line or a json file(hipify_config.json)
+```
+python hipify_cli.py --config-json hipify_config.json
+```
+hipify_config.json
+```json
+{
+    "project_directory": <relative path of project_directory to config_json>,   
+    "output_directory" : <relative path of output_directory to config_json>,
+    "header_include_dirs": [<rel path to proj_dir of directories where headers are present>],    
+    "includes":[<rel path to proj_dir of directories to be hipified> ],    
+}
+```
+### hipify.hipify_python
 ```
 from <path to hipify_torch>.hipify.hipify_python import hipify
 ```
