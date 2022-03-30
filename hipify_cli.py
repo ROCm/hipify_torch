@@ -110,7 +110,7 @@ def main():
         output_directory=output_directory,
         includes=includes,
         ignores=ignores,
-        header_include_dirs=args.header_include_dirs.strip,
+        header_include_dirs=header_include_dirs,
         is_pytorch_extension=True)
 
     if dump_dict_file:
