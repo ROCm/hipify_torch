@@ -64,29 +64,32 @@ def main():
 
 
     args = parser.parse_args()
-    if(os.path.exists(args.config_json)):
-        with open(args.config_json) as jsonf:
-            json_args = json.load(jsonf)
-            if(json_args.get('project_directory') is not None):
-                project_directory = os.path.join(os.path.dirname(args.config_json), json_args['project_directory'])
-            else:
-                raise ValueError('relative path to project_dir to config_json should be mentioned')
-            if(json_args.get('output_directory') is not None):
-                output_directory = os.path.join(os.path.dirname(args.config_json), json_args['output_directory'])
-            else:
-                output_directory = project_directory
-            if(json_args.get('includes') is not None):
-                includes = json_args['includes']
-            else:
-                includes = ['*']
-            if(json_args.get('header_include_dirs') is not None):
-                header_include_dirs = json_args['header_include_dirs']
-            else:
-                header_include_dirs = []
-            if(json_args.get('ignores') is not None):
-                ignores = json_args['ignores']
-            else:
-                ignores = []
+    if(args.config_json):
+        if(os.path.exists(args.config_json)):
+            with open(args.config_json) as jsonf:
+                json_args = json.load(jsonf)
+                if(json_args.get('project_directory') is not None):
+                    project_directory = os.path.join(os.path.dirname(args.config_json), json_args['project_directory'])
+                else:
+                    raise ValueError('relative path to project_dir to config_json should be mentioned')
+                if(json_args.get('output_directory') is not None):
+                    output_directory = os.path.join(os.path.dirname(args.config_json), json_args['output_directory'])
+                else:
+                    output_directory = project_directory
+                if(json_args.get('includes') is not None):
+                    includes = json_args['includes']
+                else:
+                    includes = ['*']
+                if(json_args.get('header_include_dirs') is not None):
+                    header_include_dirs = json_args['header_include_dirs']
+                else:
+                    header_include_dirs = []
+                if(json_args.get('ignores') is not None):
+                    ignores = json_args['ignores']
+                else:
+                    ignores = []
+        else:
+            raise ValueError('config json file specified should be a valid file path')
     else:
         if args.project_directory is not None:
             project_directory=args.project_directory;
