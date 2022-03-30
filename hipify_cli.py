@@ -110,8 +110,10 @@ def main():
         output_directory=output_directory,
         includes=includes,
         ignores=ignores,
-        header_include_dirs=header_include_dirs,
-        is_pytorch_extension=True)
+        header_include_dirs=args.header_include_dirs if type(args.header_include_dirs) is list \
+            else args.header_include_dirs.strip("[]").split(";"),
+        is_pytorch_extension=True,
+        show_detailed=True)
 
     if dump_dict_file:
         with open(dump_dict_file, 'w') as dict_file:

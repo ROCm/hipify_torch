@@ -17,7 +17,11 @@ function(write_file_list FILE_SUFFIX INPUT_LIST)
   set(_FULL_FILE_NAME "${CMAKE_BINARY_DIR}/${_temp_file_cuda_to_hip_list}_${FILE_SUFFIX}.txt")
   file(WRITE ${_FULL_FILE_NAME} "")
   foreach(_SOURCE_FILE ${INPUT_LIST})
-    file(APPEND ${_FULL_FILE_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/${_SOURCE_FILE})
+    if(NOT IS_ABSOLUTE ${_SOURCE_FILE})
+      file(APPEND ${_FULL_FILE_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/${_SOURCE_FILE})
+    else()
+      file(APPEND ${_FULL_FILE_NAME} ${_SOURCE_FILE})
+    endif()
     file(APPEND ${_FULL_FILE_NAME} "\n")
   endforeach()
 endfunction()
@@ -72,7 +76,7 @@ endfunction()
 function(hipify)
   set(flags)
   set(singleValueArgs CUDA_SOURCE_DIR HIP_SOURCE_DIR CONFIG_FILE)
-  set(multiValueArgs)
+  set(multiValueArgs HEADER_INCLUDE_DIR)
 
   cmake_parse_arguments(HIPIFY "${flags}" "${singleValueArgs}" "${multiValueArgs}" ${ARGN})
 
@@ -90,6 +94,7 @@ function(hipify)
       ${HIPIFY_DIR}/hipify_cli.py
       --project-directory ${HIPIFY_CUDA_SOURCE_DIR}
       --output-directory ${HIPIFY_HIP_SOURCE_DIR}
+      --header-include-dirs [${HIPIFY_HEADER_INCLUDE_DIR}]
       --dump-dict-file ${HIPIFY_DICT_FILE}
     )
   else()
