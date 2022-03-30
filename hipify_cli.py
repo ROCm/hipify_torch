@@ -69,7 +69,8 @@ def main():
         output_directory=out_dir,
         includes=args.includes,
         ignores=args.ignores,
-        header_include_dirs=args.header_include_dirs.strip("[]").split(";"),
+        header_include_dirs=args.header_include_dirs if type(args.header_include_dirs) is list \
+            else args.header_include_dirs.strip("[]").split(";"),
         is_pytorch_extension=True,
         show_detailed=True)
 
