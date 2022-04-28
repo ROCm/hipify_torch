@@ -789,6 +789,7 @@ def preprocessor(
                 or f.startswith("ATen/native/cuda")
                 or f.startswith("ATen/native/quantized/cuda")
                 or f.startswith("ATen/native/sparse/cuda")
+                or f.startswith("ATen/native/transformers/cuda")
                 or f.startswith("THC/")
                 or f.startswith("THCUNN/")
                 or (f.startswith("THC") and not f.startswith("THCP"))
