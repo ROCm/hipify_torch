@@ -283,7 +283,7 @@ CUDA_TYPE_NAME_MAP = collections.OrderedDict(
         ),
         ("cudaArrayCubemap", ("hipArrayCubemap", CONV_MEM, API_RUNTIME)),
         ("cudaArrayTextureGather", ("hipArrayTextureGather", CONV_MEM, API_RUNTIME)),
-        ("cudaMemoryAdvise", ("hipMemAdvise", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED)),
+        ("cudaMemoryAdvise", ("hipMemoryAdvise", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED)),
         (
             "cudaMemRangeAttribute",
             ("hipMemRangeAttribute", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED),
