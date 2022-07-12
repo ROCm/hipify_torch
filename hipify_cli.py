@@ -88,6 +88,14 @@ def main():
                     ignores = json_args['ignores']
                 else:
                     ignores = []
+                if(json_args.get('extra_files') is not None):
+                    extra_files = json_args['extra_files']
+                else:
+                    extra_files = []
+                if(json_args.get('hipify_extra_files_only') is not None):
+                    hipify_extra_files_only = json_args['hipify_extra_files_only']
+                else:
+                    hipify_extra_files_only = False
         else:
             raise ValueError('config json file specified should be a valid file path')
     else:
@@ -112,7 +120,9 @@ def main():
         ignores=ignores,
         header_include_dirs=args.header_include_dirs if type(args.header_include_dirs) is list \
             else args.header_include_dirs.strip("[]").split(";"),
+        extra_files=extra_files,
         is_pytorch_extension=True,
+        hipify_extra_files_only=hipify_extra_files_only,
         show_detailed=True)
 
     if dump_dict_file:

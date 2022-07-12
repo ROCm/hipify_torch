@@ -62,10 +62,13 @@ python hipify_cli.py --config-json hipify_config.json
 hipify_config.json
 ```json
 {
-    "project_directory": <relative path of project_directory to config_json>,   
-    "output_directory" : <relative path of output_directory to config_json>,
-    "header_include_dirs": [<rel path to proj_dir of directories where headers are present>],    
-    "includes":[<rel path to proj_dir of directories to be hipified> ],    
+    "project_directory": <absolute path of project_directory to config_json>,
+    "output_directory" : <absolute path of output_directory to config_json>,
+    "header_include_dirs": [<absolute path to proj_dir of directories where headers are present>],
+    "includes": [<absolute path to proj_dir of directories to be hipified>],
+    "ignores": [<absolute path to proj_dir of directories to explicitly not hipify>],
+    "extra_files": [<absolute or relative paths of extra files to be hipified>],
+    "hipify_extra_files_only": <true or false, whether to only hipify extra files>
 }
 ```
 ### hipify.hipify_python
