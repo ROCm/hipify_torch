@@ -2,7 +2,7 @@ import collections
 
 from .constants import (API_BLAS, API_C10, API_CAFFE2, API_DRIVER, API_FFT,
                         API_PYTORCH, API_RAND, API_ROCTX, API_RTC, API_RUNTIME,
-                        API_SPARSE, CONV_CACHE, CONV_CONTEXT, CONV_D3D9,
+                        API_SPARSE, API_ROCMSMI, CONV_CACHE, CONV_CONTEXT, CONV_D3D9,
                         CONV_D3D10, CONV_D3D11, CONV_DEF, CONV_DEVICE,
                         CONV_DEVICE_FUNC, CONV_EGL, CONV_ERROR, CONV_EVENT,
                         CONV_EXEC, CONV_GL, CONV_GRAPHICS, CONV_INCLUDE,
@@ -94,6 +94,9 @@ CUDA_TYPE_NAME_MAP = collections.OrderedDict(
         ("CUdevice", ("hipDevice_t", CONV_TYPE, API_DRIVER)),
         ("CUdevice_attribute_enum", ("hipDeviceAttribute_t", CONV_TYPE, API_DRIVER)),
         ("CUdevice_attribute", ("hipDeviceAttribute_t", CONV_TYPE, API_DRIVER)),
+        ("CUpointer_attribute", ("hipPointer_attribute", CONV_TYPE, API_DRIVER)),
+        ("CU_POINTER_ATTRIBUTE_DEVICE_ORDINAL", ("HIP_POINTER_ATTRIBUTE_DEVICE_ORDINAL", CONV_TYPE, API_DRIVER)),
+        ("CU_POINTER_ATTRIBUTE_BUFFER_ID", ("HIP_POINTER_ATTRIBUTE_BUFFER_ID", CONV_TYPE, API_DRIVER)),
         ("CUdeviceptr", ("hipDeviceptr_t", CONV_TYPE, API_DRIVER)),
         ("CUarray_st", ("hipArray", CONV_TYPE, API_DRIVER)),
         ("CUarray", ("hipArray *", CONV_TYPE, API_DRIVER)),
@@ -602,6 +605,7 @@ CUDA_INCLUDE_MAP = collections.OrderedDict(
         ("cub/device/device_scan.cuh", ("hipcub/hipcub.hpp", CONV_INCLUDE, API_BLAS)),
         ("cub/device/device_select.cuh", ("hipcub/hipcub.hpp", CONV_INCLUDE, API_BLAS)),
         ("nvToolsExt.h", ("roctracer/roctx.h", CONV_INCLUDE, API_ROCTX)),
+        ("nvml.h", ("rocm_smi/rocm_smi.h", CONV_INCLUDE, API_ROCMSMI)),
     ]
 )
 
@@ -7768,6 +7772,9 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ("nvtxRangePop", ("roctxRangePop", CONV_OTHER, API_ROCTX)),
         ("nvtxRangeStartA", ("roctxRangeStartA", CONV_OTHER, API_ROCTX)),
         ("nvtxRangeEnd", ("roctxRangeStop", CONV_OTHER, API_ROCTX)),
+        ("nvmlReturn_t", ("rsmi_status_t", CONV_OTHER, API_ROCMSMI)),
+        ("NVML_SUCCESS", ("RSMI_STATUS_SUCCESS", CONV_OTHER, API_ROCMSMI)),
+        ("nvmlDevice_t", ("uint32_t", CONV_OTHER, API_ROCMSMI)),
     ]
 )
 
