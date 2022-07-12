@@ -110,6 +110,8 @@ def main():
         includes=args.includes
         ignores=args.ignores
         header_include_dirs=args.header_include_dirs
+        extra_files = []
+        hipify_extra_files_only = False
     dump_dict_file = args.dump_dict_file
     print("project_directory :",project_directory , " output_directory: ", output_directory, " includes: ", includes, " ignores: ", ignores, " header_include_dirs: ", header_include_dirs)
 
