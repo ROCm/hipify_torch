@@ -532,6 +532,7 @@ CUDA_TYPE_NAME_MAP = collections.OrderedDict(
         ("curandStateXORWOW_t", ("hiprandStateXORWOW_t", CONV_TYPE, API_RAND)),
         ("curandState_t", ("hiprandState_t", CONV_TYPE, API_RAND)),
         ("curandState", ("hiprandState_t", CONV_TYPE, API_RAND)),
+        ("CUuuid", ("hipUUID", CONV_TYPE, API_RUNTIME)),
     ]
 )
 
@@ -2731,11 +2732,11 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ),
         (
             "cuGetErrorName",
-            ("hipGetErrorName___", CONV_ERROR, API_DRIVER, HIP_UNSUPPORTED),
+            ("hipGetErrorName", CONV_ERROR, API_DRIVER, HIP_UNSUPPORTED),
         ),
         (
             "cuGetErrorString",
-            ("hipGetErrorString___", CONV_ERROR, API_DRIVER, HIP_UNSUPPORTED),
+            ("hipGetErrorString", CONV_ERROR, API_DRIVER, HIP_UNSUPPORTED),
         ),
         ("cuInit", ("hipInit", CONV_INIT, API_DRIVER)),
         ("cuDriverGetVersion", ("hipDriverGetVersion", CONV_VERSION, API_DRIVER)),
@@ -2748,6 +2749,7 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ("cuCtxGetCurrent", ("hipCtxGetCurrent", CONV_CONTEXT, API_DRIVER)),
         ("cuCtxGetDevice", ("hipCtxGetDevice", CONV_CONTEXT, API_DRIVER)),
         ("cuCtxGetFlags", ("hipCtxGetFlags", CONV_CONTEXT, API_DRIVER)),
+        ("cuDeviceGetUuid", ("hipDeviceGetUuid", CONV_CONTEXT, API_DRIVER)),
         (
             "cuCtxGetLimit",
             ("hipCtxGetLimit", CONV_CONTEXT, API_DRIVER, HIP_UNSUPPORTED),
@@ -3138,6 +3140,10 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         (
             "cuPointerGetAttribute",
             ("hipPointerGetAttribute", CONV_MEM, API_DRIVER, HIP_UNSUPPORTED),
+        ),
+        (
+            "cuMemGetAddressRange_v2",
+            ("hipMemGetAddressRange", CONV_MEM, API_DRIVER),
         ),
         (
             "cuPointerGetAttributes",
@@ -7774,7 +7780,11 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ("nvtxRangeEnd", ("roctxRangeStop", CONV_OTHER, API_ROCTX)),
         ("nvmlReturn_t", ("rsmi_status_t", CONV_OTHER, API_ROCMSMI)),
         ("NVML_SUCCESS", ("RSMI_STATUS_SUCCESS", CONV_OTHER, API_ROCMSMI)),
+        ("NVML_ERROR_INSUFFICIENT_SIZE", ("RSMI_STATUS_INSUFFICIENT_SIZE", CONV_OTHER, API_ROCMSMI)),
         ("nvmlDevice_t", ("uint32_t", CONV_OTHER, API_ROCMSMI)),
+        ("nvmlGpuP2PStatus_t", ("bool", CONV_OTHER, API_ROCMSMI)),
+        ("nvmlProcessInfo_t", ("rsmi_process_info_t", CONV_OTHER, API_ROCMSMI)),
+        ("nvmlGpuP2PCapsIndex_t", ("uint32_t", CONV_OTHER, API_ROCMSMI)),
     ]
 )
 
