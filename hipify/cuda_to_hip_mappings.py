@@ -7780,6 +7780,8 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ("nvtxRangeEnd", ("roctxRangeStop", CONV_OTHER, API_ROCTX)),
         ("nvmlReturn_t", ("rsmi_status_t", CONV_OTHER, API_ROCMSMI)),
         ("NVML_SUCCESS", ("RSMI_STATUS_SUCCESS", CONV_OTHER, API_ROCMSMI)),
+        ("NVML_P2P_CAPS_INDEX_READ", ("RSMI_STATUS_SUCCESS", CONV_OTHER, API_ROCMSMI)),
+        ("NVML_P2P_STATUS_OK", ("RSMI_STATUS_SUCCESS", CONV_OTHER, API_ROCMSMI)),
         ("NVML_ERROR_INSUFFICIENT_SIZE", ("RSMI_STATUS_INSUFFICIENT_SIZE", CONV_OTHER, API_ROCMSMI)),
         ("nvmlDevice_t", ("uint32_t", CONV_OTHER, API_ROCMSMI)),
         ("nvmlGpuP2PStatus_t", ("bool", CONV_OTHER, API_ROCMSMI)),
