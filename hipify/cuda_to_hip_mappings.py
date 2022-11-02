@@ -45,6 +45,7 @@ CUDA_TYPE_NAME_MAP = collections.OrderedDict(
     [
         ("CUresult", ("hipError_t", CONV_TYPE, API_DRIVER)),
         ("cudaError_t", ("hipError_t", CONV_TYPE, API_RUNTIME)),
+        ("cudaError", ("hipError_t", CONV_TYPE, API_RUNTIME)),
         (
             "CUDA_ARRAY3D_DESCRIPTOR",
             ("HIP_ARRAY3D_DESCRIPTOR", CONV_TYPE, API_DRIVER, HIP_UNSUPPORTED),
@@ -4902,6 +4903,22 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             "cudaDeviceGetCacheConfig",
             ("hipDeviceGetCacheConfig", CONV_CACHE, API_RUNTIME),
         ),
+        (
+            "cudaFuncAttributes",
+            ("hipFuncAttributes", CONV_TYPE, API_RUNTIME),
+        ),
+        (
+            "cudaFuncAttributeMaxDynamicSharedMemorySize",
+            ("hipFuncAttributeMaxDynamicSharedMemorySize", CONV_TYPE, API_RUNTIME),
+        ),
+        (
+            "cudaFuncAttributePreferredSharedMemoryCarveout",
+            ("hipFuncAttributePreferredSharedMemoryCarveout", CONV_TYPE, API_RUNTIME),
+        ),
+        (
+            "cudaFuncSetAttribute",
+            ("hipFuncSetAttribute", CONV_EXEC, API_RUNTIME),
+        ),
         ("cudaFuncSetCacheConfig", ("hipFuncSetCacheConfig", CONV_CACHE, API_RUNTIME)),
         (
             "cudaFuncCachePreferNone",
@@ -4941,6 +4958,10 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             ("hipConfigureCall", CONV_EXEC, API_RUNTIME, HIP_UNSUPPORTED),
         ),
         ("cudaLaunch", ("hipLaunch", CONV_EXEC, API_RUNTIME, HIP_UNSUPPORTED)),
+        (
+ 	    "cudaLaunchCooperativeKernel", 
+	    ("hipLaunchCooperativeKernel", CONV_EXEC, API_RUNTIME),
+        ),
         (
             "cudaSetupArgument",
             ("hipSetupArgument", CONV_EXEC, API_RUNTIME, HIP_UNSUPPORTED),
