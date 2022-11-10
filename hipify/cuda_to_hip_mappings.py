@@ -554,6 +554,7 @@ CUDA_INCLUDE_MAP = collections.OrderedDict(
             ("hip/hip_runtime.h", CONV_INCLUDE_CUDA_MAIN_H, API_RUNTIME),
         ),
         ("cuda_runtime_api.h", ("hip/hip_runtime_api.h", CONV_INCLUDE, API_RUNTIME)),
+        ("cuda_profiler_api.h", ("hip/hip_runtime_api.h", CONV_INCLUDE, API_RUNTIME)),
         (
             "channel_descriptor.h",
             ("hip/channel_descriptor.h", CONV_INCLUDE, API_RUNTIME),
@@ -8142,6 +8143,10 @@ PYTORCH_SPECIFIC_MAPPINGS = collections.OrderedDict(
         (
             "setCurrentCUDAStream",
             ("setCurrentHIPStreamMasqueradingAsCUDA", API_PYTORCH),
+        ),
+        (
+            "ATen/cudnn/Handle.h",
+            ("ATen/miopen/Handle.h", API_PYTORCH),
         ),
         # TODO: Undo this special-case; see the header for motivation behind this
         # hack.  It's VERY important this is only applied to PyTorch HIPify.
