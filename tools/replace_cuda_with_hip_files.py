@@ -36,6 +36,7 @@ def main():
     with open(args.io_file) as inp_file:
         for line in inp_file:
             line = line.strip()
+            line = os.path.abspath(line)
             if line in hipified_result:
                 out_list.append(hipified_result[line]['hipified_path'])
             else:
