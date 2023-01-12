@@ -1043,6 +1043,8 @@ def hipify(
     # Preprocessing statistics.
     stats: Dict[str, List] = {"unsupported_calls": [], "kernel_launches": []}
 
+    all_files = [ os.path.abspath(filepath) for filepath in all_files ]
+
     for filepath in (all_files if not hipify_extra_files_only else extra_files):
         preprocess_file_and_save_result(output_directory, filepath, all_files, header_include_dirs,
                                         stats, hip_clang_launch, is_pytorch_extension, clean_ctx, show_progress)
