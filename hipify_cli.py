@@ -52,6 +52,7 @@ def main():
 
     parser.add_argument(
         '--dump-dict-file',
+        default='hipify_output_dict_dump.txt',
         type=str,
         help="The file to Store the return dict output after hipification",
         required=False)
