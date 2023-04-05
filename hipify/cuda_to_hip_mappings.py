@@ -7607,6 +7607,9 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             ),
         ),
         ("cuComplex", ("rocblas_float_complex", CONV_TYPE, API_BLAS)),
+        ("cuFloatComplex", ("rocblas_float_complex", CONV_TYPE, API_BLAS)),
+        ("cuCrealf", ("std::real", CONV_TYPE, API_BLAS)), # From rocblas complex header
+        ("cuCimagf", ("std::imag", CONV_TYPE, API_BLAS)), # From rocblas complex header
         ("cuDoubleComplex", ("rocblas_double_complex", CONV_TYPE, API_BLAS)),
         ("cufftResult_t", ("hipfftResult_t", CONV_TYPE, API_FFT)),
         ("cufftResult", ("hipfftResult", CONV_TYPE, API_FFT)),

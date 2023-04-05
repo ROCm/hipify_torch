@@ -173,10 +173,13 @@ def preprocess_file_and_save_result(
         is_pytorch_extension: bool,
         clean_ctx: GeneratedFileCleaner,
         show_progress: bool) -> None:
+    fin_path = os.path.abspath(os.path.join(output_directory, filepath))
+    if fin_path not in HIPIFY_FINAL_RESULT:
+        HIPIFY_FINAL_RESULT[fin_path] = {}
+    HIPIFY_FINAL_RESULT[fin_path]["hipified_path"] = fin_path
     result = preprocessor(output_directory, filepath, all_files, header_include_dirs, stats,
                           hip_clang_launch, is_pytorch_extension, clean_ctx, show_progress)
 
-    fin_path = os.path.abspath(os.path.join(output_directory, filepath))
     # Show what happened
     if show_progress and "ignored" not in result["status"]:
         print(
@@ -766,7 +769,6 @@ def preprocessor(
         # checks SPARSE map first, and if a miss occurs, falls back to pytorch mappings
         return PYTORCH_SPARSE_MAP.get(m.group(0), pt_repl(m))
 
-
     if is_pytorch_extension:
         output_source = RE_PYTORCH_PREPROCESSOR.sub(pt_repl, output_source)
     else:
@@ -820,6 +822,7 @@ def preprocessor(
                     return m.group(0)
                 # Hipify header file first if needed
                 if header_filepath not in HIPIFY_FINAL_RESULT:
+                    print(f'recursing on {header_filepath}')
                     preprocess_file_and_save_result(output_directory,
                                                     header_filepath,
                                                     all_files, header_include_dirs, stats, hip_clang_launch,
