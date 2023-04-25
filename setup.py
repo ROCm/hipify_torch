@@ -1,4 +1,3 @@
-from distutils.core import setup
 from setuptools import setup, Extension, distutils, Command, find_packages
 import setuptools.command.install
 import distutils.command.build
@@ -34,7 +33,7 @@ cmd_class = {
 
 setup(
     name='hipify_torch',
-    version='0.1',
+    version='1.0',
     cmdclass=cmd_class,
     packages=['hipify',],
     long_description=open('README.md').read(),

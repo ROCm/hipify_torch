@@ -145,6 +145,7 @@ def matched_files_iter(
                 dirs.remove("build")
             if "third_party" in dirs:
                 dirs.remove("third_party")
+                dirs.append("third_party/nvfuser")
         for filename in filenames:
             filepath = os.path.join(abs_dirpath, filename)
             rel_filepath = os.path.join(rel_dirpath, filename)
@@ -586,6 +587,8 @@ def is_out_of_place(rel_filepath):
     assert(not os.path.isabs(rel_filepath))
     if rel_filepath.startswith("torch/"):
         return False
+    if rel_filepath.startswith("third_party/nvfuser/"):
+        return False
     if rel_filepath.startswith("tools/autograd/templates/"):
         return False
     return True
@@ -599,6 +602,8 @@ def is_pytorch_file(rel_filepath):
             return False
         return True
     if rel_filepath.startswith("torch/"):
+        return True
+    if rel_filepath.startswith("third_party/nvfuser/"):
         return True
     if rel_filepath.startswith("tools/autograd/templates/"):
         return True
