@@ -8569,11 +8569,11 @@ C10_MAPPINGS = collections.OrderedDict(
 # NB: C10 mappings are more specific than Caffe2 mappings, so run them
 # first
 CUDA_TO_HIP_MAPPINGS = [
-    CUDA_SOLVER_MAP,
     CUDA_IDENTIFIER_MAP,
     CUDA_TYPE_NAME_MAP,
     CUDA_INCLUDE_MAP,
     CUDA_SPARSE_MAP,
+    CUDA_SOLVER_MAP,
     C10_MAPPINGS,
     PYTORCH_SPECIFIC_MAPPINGS,
     CAFFE2_SPECIFIC_MAPPINGS,

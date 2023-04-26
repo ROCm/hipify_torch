@@ -710,7 +710,7 @@ for mapping in CUDA_TO_HIP_MAPPINGS:
             PYTORCH_TRIE.add(src)
             # if src is already in PYTORCH_MAP and dst belongs to API_SPARSE
             # do not overwrite PYTORCH_MAP, store dst separately
-            if constants.API_SPARSE in meta_data and PYTORCH_MAP.get(src, ""):
+            if (constants.API_SPARSE in meta_data or constants.API_SOLVER in meta_data) and PYTORCH_MAP.get(src, ""):
                 PYTORCH_SPARSE_MAP[src] = dst
             else:
                 PYTORCH_MAP[src] = dst
