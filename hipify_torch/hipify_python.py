@@ -612,7 +612,6 @@ def is_pytorch_file(rel_filepath):
 def is_special_file(rel_filepath):
     assert(not os.path.isabs(rel_filepath))
     if is_pytorch_file(rel_filepath):
-        #return (("sparse" in rel_filepath.lower()) or ("linalg" in rel_filepath.lower()))
         return "sparse" in rel_filepath.lower()
     return False
 
