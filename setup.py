@@ -16,6 +16,6 @@ setup(
     name='hipify_torch',
     version='1.0',
     cmdclass=cmd_class,
-    packages=['hipify',],
+    packages=['hipify_torch',],
     long_description=open('README.md').read(),
     )

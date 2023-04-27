@@ -10,7 +10,7 @@ import os
 import sys
 import argparse
 import json
-from hipify import hipify_python
+from hipify_torch import hipify_python
 
 def main():
     parser = argparse.ArgumentParser(
