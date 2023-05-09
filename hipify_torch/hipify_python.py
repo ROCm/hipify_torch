@@ -145,6 +145,7 @@ def matched_files_iter(
                 dirs.remove("build")
             if "third_party" in dirs:
                 dirs.remove("third_party")
+                dirs.append("third_party/nvfuser")
         for filename in filenames:
             filepath = os.path.join(abs_dirpath, filename)
             rel_filepath = os.path.join(rel_dirpath, filename)
@@ -586,6 +587,8 @@ def is_out_of_place(rel_filepath):
     assert(not os.path.isabs(rel_filepath))
     if rel_filepath.startswith("torch/"):
         return False
+    if rel_filepath.startswith("third_party/nvfuser/"):
+        return False
     if rel_filepath.startswith("tools/autograd/templates/"):
         return False
     return True
@@ -600,11 +603,13 @@ def is_pytorch_file(rel_filepath):
         return True
     if rel_filepath.startswith("torch/"):
         return True
+    if rel_filepath.startswith("third_party/nvfuser/"):
+        return True
     if rel_filepath.startswith("tools/autograd/templates/"):
         return True
     return False
 
-def is_cusparse_file(rel_filepath):
+def is_special_file(rel_filepath):
     assert(not os.path.isabs(rel_filepath))
     if is_pytorch_file(rel_filepath):
         return "sparse" in rel_filepath.lower()
@@ -693,7 +698,7 @@ PYTORCH_MAP: Dict[str, object] = {}
 # but the pytorch mappings assume roc. Therefore, we create a new SPARSE mapping that has a higher priority.
 # Its mappings will trigger first, and only when a miss occurs will the lower-priority pytorch mapping take place.
 # When a file contains "sparse" in the filename, a mapping marked with API_SPARSE is preferred over other choices.
-PYTORCH_SPARSE_MAP = {}
+PYTORCH_SPECIAL_MAP = {}
 
 
 for mapping in CUDA_TO_HIP_MAPPINGS:
@@ -705,8 +710,8 @@ for mapping in CUDA_TO_HIP_MAPPINGS:
             PYTORCH_TRIE.add(src)
             # if src is already in PYTORCH_MAP and dst belongs to API_SPARSE
             # do not overwrite PYTORCH_MAP, store dst separately
-            if constants.API_SPARSE in meta_data and PYTORCH_MAP.get(src, ""):
-                PYTORCH_SPARSE_MAP[src] = dst
+            if constants.API_SPECIAL in meta_data and PYTORCH_MAP.get(src, ""):
+                PYTORCH_SPECIAL_MAP[src] = dst
             else:
                 PYTORCH_MAP[src] = dst
         if constants.API_PYTORCH not in meta_data:
@@ -762,16 +767,16 @@ def preprocessor(
     def pt_repl(m):
         return PYTORCH_MAP[m.group(0)]
 
-    def pt_sparse_repl(m):
+    def pt_special_repl(m):
         # checks SPARSE map first, and if a miss occurs, falls back to pytorch mappings
-        return PYTORCH_SPARSE_MAP.get(m.group(0), pt_repl(m))
+        return PYTORCH_SPECIAL_MAP.get(m.group(0), pt_repl(m))
 
 
     if is_pytorch_extension:
         output_source = RE_PYTORCH_PREPROCESSOR.sub(pt_repl, output_source)
     else:
-        if is_cusparse_file(rel_filepath):
-            output_source = RE_PYTORCH_PREPROCESSOR.sub(pt_sparse_repl, output_source)
+        if is_special_file(rel_filepath):
+            output_source = RE_PYTORCH_PREPROCESSOR.sub(pt_special_repl, output_source)
         elif is_pytorch_file(rel_filepath):
             output_source = RE_PYTORCH_PREPROCESSOR.sub(pt_repl, output_source)
         else:
