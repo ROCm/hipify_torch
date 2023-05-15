@@ -982,6 +982,7 @@ def hipify(
     show_detailed: bool = False,
     extensions: Iterable = (".cu", ".cuh", ".c", ".cc", ".cpp", ".h", ".in", ".hpp"),
     header_extensions: Iterable = (".cuh", ".h", ".hpp"),
+    optional_extensions: Iterable = (),
     output_directory: str = "",
     header_include_dirs: Iterable = (),
     includes: Iterable = ('*',),
@@ -1010,6 +1011,9 @@ def hipify(
     if project_directory != output_directory:
         includes = [include.replace(project_directory, output_directory) for include in includes]
         ignores = [ignore.replace(project_directory, output_directory) for ignore in ignores]
+
+    # update extensions with optional extensions.
+    extensions = extensions + optional_extensions
 
     # Copy from project directory to output directory if not done already.
     if not os.path.exists(output_directory):
