@@ -612,7 +612,7 @@ def is_pytorch_file(rel_filepath):
 def is_special_file(rel_filepath):
     assert(not os.path.isabs(rel_filepath))
     if is_pytorch_file(rel_filepath):
-        return "sparse" in rel_filepath.lower()
+        return ("sparse" in rel_filepath.lower()) or ("linalg" in rel_filepath.lower())
     return False
 
 def is_caffe2_gpu_file(rel_filepath):
@@ -698,6 +698,7 @@ PYTORCH_MAP: Dict[str, object] = {}
 # but the pytorch mappings assume roc. Therefore, we create a new SPARSE mapping that has a higher priority.
 # Its mappings will trigger first, and only when a miss occurs will the lower-priority pytorch mapping take place.
 # When a file contains "sparse" in the filename, a mapping marked with API_SPARSE is preferred over other choices.
+# Similarly, "linalg" files require rocBLAS -> hipSOLVER so they also need special handling.
 PYTORCH_SPECIAL_MAP = {}
 
 
