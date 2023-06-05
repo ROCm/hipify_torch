@@ -496,7 +496,7 @@ def hip_header_magic(input_string):
 RE_EXTERN_SHARED = re.compile(r"extern\s+([\w\(\)]+)?\s*__shared__\s+([\w:<>\s]+)\s+(\w+)\s*\[\s*\]\s*;")
 
 
-def r./torch/include/ATen/native/hip/reduction_template.cuheplace_extern_shared(input_string):
+def replace_extern_shared(input_string):
     """Match extern __shared__ type foo[]; syntax and use HIP_DYNAMIC_SHARED() MACRO instead.
        https://github.com/ROCm-Developer-Tools/HIP/blob/master/docs/markdown/hip_kernel_language.md#__shared__
     Example:
@@ -856,10 +856,6 @@ def preprocessor(
 
     # Include header if device code is contained.
     output_source = hip_header_magic(output_source)
-
-    # Replace the extern __shared__
-    # NOTE: No longer needed after transition from hcc to hipclang.
-    #output_source = replace_extern_shared(output_source)
 
     # Don't write out identical hipified files for extensions if dirpath has not changed
     if (
