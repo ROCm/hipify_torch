@@ -2,7 +2,7 @@ import collections
 
 from .constants import (API_BLAS, API_C10, API_CAFFE2, API_DRIVER, API_FFT,
                         API_PYTORCH, API_PYT_EXT, API_RAND, API_ROCTX, API_RTC, API_RUNTIME,
-                        API_SPECIAL, API_ROCMSMI, CONV_CACHE, CONV_CONTEXT, CONV_D3D9,
+                        API_SPECIAL, API_ROCMSMI, API_CUPY, CONV_CACHE, CONV_CONTEXT, CONV_D3D9,
                         CONV_D3D10, CONV_D3D11, CONV_DEF, CONV_DEVICE,
                         CONV_DEVICE_FUNC, CONV_EGL, CONV_ERROR, CONV_EVENT,
                         CONV_EXEC, CONV_GL, CONV_GRAPHICS, CONV_INCLUDE,
@@ -8266,6 +8266,12 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
     ]
 )
 
+CUPY_SPECIAL_MAPPINGS = collections.OrderedDict(
+    [
+        ("CUPY_USE_GEN_HIP_CODE", ("CUPY_USE_GEN_HIP_CODE==0", API_CUPY)),
+    ]
+)
+
 PYTORCH_SPECIFIC_MAPPINGS = collections.OrderedDict(
     [
         ("USE_CUDA", ("USE_ROCM", API_PYTORCH)),
@@ -8573,4 +8579,5 @@ CUDA_TO_HIP_MAPPINGS = [
     C10_MAPPINGS,
     PYTORCH_SPECIFIC_MAPPINGS,
     CAFFE2_SPECIFIC_MAPPINGS,
+    CUPY_SPECIAL_MAPPINGS,
 ]

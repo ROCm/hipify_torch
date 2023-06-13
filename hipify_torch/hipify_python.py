@@ -615,6 +615,12 @@ def is_special_file(rel_filepath):
         return "sparse" in rel_filepath.lower()
     return False
 
+def is_cupy_file(rel_filepath):
+    assert(not os.path.isabs(rel_filepath))
+    if "cupy" in rel_filepath:
+        return True
+    return False
+
 def is_caffe2_gpu_file(rel_filepath):
     assert(not os.path.isabs(rel_filepath))
     if rel_filepath.startswith("c10/cuda"):
@@ -700,6 +706,9 @@ PYTORCH_MAP: Dict[str, object] = {}
 # When a file contains "sparse" in the filename, a mapping marked with API_SPARSE is preferred over other choices.
 PYTORCH_SPECIAL_MAP = {}
 
+# CuPy special map to switch the CUPY_USE_GEN_HIP_CODE env variable.
+CUPY_TRIE = Trie()
+CUPY_SPECIAL_MAP = {}
 
 for mapping in CUDA_TO_HIP_MAPPINGS:
     assert isinstance(mapping, Mapping)
@@ -717,8 +726,12 @@ for mapping in CUDA_TO_HIP_MAPPINGS:
         if constants.API_PYTORCH not in meta_data:
             CAFFE2_TRIE.add(src)
             CAFFE2_MAP[src] = dst
+        if constants.API_CUPY in meta_data:
+            CUPY_TRIE.add(src)
+            CUPY_SPECIAL_MAP[src] = dst
 RE_CAFFE2_PREPROCESSOR = re.compile(CAFFE2_TRIE.pattern())
 RE_PYTORCH_PREPROCESSOR = re.compile(r'(?<=\W)({0})(?=\W)'.format(PYTORCH_TRIE.pattern()))
+RE_CUPY_PREPROCESSOR = re.compile(CUPY_TRIE.pattern())
 
 RE_QUOTE_HEADER = re.compile(r'#include "([^"]+)"')
 RE_ANGLE_HEADER = re.compile(r'#include <([^>]+)>')
@@ -779,6 +792,10 @@ def preprocessor(
             output_source = RE_PYTORCH_PREPROCESSOR.sub(pt_special_repl, output_source)
         elif is_pytorch_file(rel_filepath):
             output_source = RE_PYTORCH_PREPROCESSOR.sub(pt_repl, output_source)
+        elif is_cupy_file(rel_filepath):
+            def cupy_repl(m):
+                return CUPY_SPECIAL_MAP[m.group(0)]
+            output_source = RE_CUPY_PREPROCESSOR(cupy_repl, output_source)
         else:
             def c2_repl(m):
                 return CAFFE2_MAP[m.group(0)]
