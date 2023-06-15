@@ -8268,7 +8268,7 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
 
 CUPY_SPECIAL_MAPPINGS = collections.OrderedDict(
     [
-        ("CUPY_USE_GEN_HIP_CODE", ("CUPY_USE_GEN_HIP_CODE==0", API_CUPY)),
+        ("CUPY_USE_GEN_HIP_CODE", ("CUPY_DONT_USE_GEN_HIP_CODE", API_CUPY)),
     ]
 )
 
