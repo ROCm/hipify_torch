@@ -29,6 +29,7 @@ import re
 import shutil
 import sys
 import os
+import json
 
 from . import constants
 from .cuda_to_hip_mappings import CUDA_TO_HIP_MAPPINGS
@@ -46,6 +47,8 @@ HIPIFY_FINAL_RESULT: HipifyFinalResult = {}
 to their actual types."""
 PYTORCH_TEMPLATE_MAP = {"Dtype": "scalar_t", "T": "scalar_t"}
 
+# Custom mapping json file (default), if the file is not available hipify call doesn't process it.
+custom_mapping_file = "custom.json"
 
 class InputError(Exception):
     # Exception raised for errors in the input.
@@ -597,12 +600,6 @@ def is_special_file(rel_filepath):
         return ("sparse" in rel_filepath.lower()) or ("linalg" in rel_filepath.lower())
     return False
 
-def is_cupy_file(rel_filepath):
-    assert(not os.path.isabs(rel_filepath))
-    if "cupy" in rel_filepath:
-        return True
-    return False
-
 def is_caffe2_gpu_file(rel_filepath):
     assert(not os.path.isabs(rel_filepath))
     if rel_filepath.startswith("c10/cuda"):
@@ -688,10 +685,8 @@ PYTORCH_MAP: Dict[str, object] = {}
 # When a file contains "sparse" in the filename, a mapping marked with API_SPARSE is preferred over other choices.
 # Similarly, "linalg" files require rocBLAS -> hipSOLVER so they also need special handling.
 PYTORCH_SPECIAL_MAP = {}
-
-# CuPy special map to switch the CUPY_USE_GEN_HIP_CODE env variable.
-CUPY_TRIE = Trie()
-CUPY_SPECIAL_MAP = {}
+CUSTOM_TRIE = Trie()
+CUSTOM_SPECIAL_MAP = {}
 
 for mapping in CUDA_TO_HIP_MAPPINGS:
     assert isinstance(mapping, Mapping)
@@ -709,17 +704,25 @@ for mapping in CUDA_TO_HIP_MAPPINGS:
         if constants.API_PYTORCH not in meta_data:
             CAFFE2_TRIE.add(src)
             CAFFE2_MAP[src] = dst
-        if constants.API_CUPY in meta_data:
-            CUPY_TRIE.add(src)
-            CUPY_SPECIAL_MAP[src] = dst
 RE_CAFFE2_PREPROCESSOR = re.compile(CAFFE2_TRIE.pattern())
 RE_PYTORCH_PREPROCESSOR = re.compile(r'(?<=\W)({0})(?=\W)'.format(PYTORCH_TRIE.pattern()))
-RE_CUPY_PREPROCESSOR = re.compile(CUPY_TRIE.pattern())
 
 RE_QUOTE_HEADER = re.compile(r'#include "([^"]+)"')
 RE_ANGLE_HEADER = re.compile(r'#include <([^>]+)>')
 RE_THC_GENERIC_FILE = re.compile(r'#define THC_GENERIC_FILE "([^"]+)"')
 RE_CU_SUFFIX = re.compile(r'\.cu\b')  # be careful not to pick up .cuh
+
+#  This function takes in the custom json file and looks for custom_mappings available.
+def update_custom_mappings():
+    if os.path.exists(custom_mapping_file):
+        with open(custom_mapping_file, 'r') as f:
+            json_data = json.load(f)
+        custom_mapping_list = json_data['custom_map']
+        for custom_map in custom_mapping_list:
+            src = list(custom_map.keys())[0]
+            CUSTOM_TRIE.add(src)
+            dst = custom_map[src]
+            CUSTOM_SPECIAL_MAP[src] = dst
 
 """
 Returns a dict with the following keys:
@@ -775,14 +778,17 @@ def preprocessor(
             output_source = RE_PYTORCH_PREPROCESSOR.sub(pt_special_repl, output_source)
         elif is_pytorch_file(rel_filepath):
             output_source = RE_PYTORCH_PREPROCESSOR.sub(pt_repl, output_source)
-        elif is_cupy_file(rel_filepath):
-            def cupy_repl(m):
-                return CUPY_SPECIAL_MAP[m.group(0)]
-            output_source = RE_CUPY_PREPROCESSOR(cupy_repl, output_source)
         else:
             def c2_repl(m):
                 return CAFFE2_MAP[m.group(0)]
             output_source = RE_CAFFE2_PREPROCESSOR.sub(c2_repl, output_source)
+
+    ## replace all custom mappings.
+    if len(CUSTOM_SPECIAL_MAP) > 0:
+        RE_CUSTOM_PREPROCESSOR = re.compile(CUSTOM_TRIE.pattern())
+        def custom_repl(m):
+            return CUSTOM_SPECIAL_MAP[m.group(0)]
+        output_source = RE_CUSTOM_PREPROCESSOR.sub(custom_repl, output_source)
 
     # Header rewrites
     def mk_repl(templ, include_current_dir=True):
@@ -983,6 +989,7 @@ def hipify(
     output_directory: str = "",
     header_include_dirs: Iterable = (),
     includes: Iterable = ('*',),
+    custom_map_list: str = "",
     extra_files: Iterable = (),
     out_of_place_only: bool = False,
     ignores: Iterable = (),
@@ -999,6 +1006,12 @@ def hipify(
     if not os.path.exists(project_directory):
         print("The project folder specified does not exist.")
         sys.exit(1)
+
+    # custom mapping json file that is provided by user.
+    if custom_map_list:
+        global custom_mapping_file
+        custom_mapping_file = os.path.abspath(custom_map_list)
+    update_custom_mappings()
 
     # If no output directory, provide a default one.
     if not output_directory:
