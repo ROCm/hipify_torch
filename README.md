@@ -11,6 +11,7 @@ It can also "hipify" the header include statements in your source code to ensure
   - [Through python](#through-python)
 - [Utilities](#utilities)
   - [CMake utility function](#cmake-utility-function)
+- [Custom hipify mapping](#custom-hipify-mapping)
 - [Intended users](#intended-users)
 
 <!-- tocstop -->
@@ -99,6 +100,22 @@ get_hipified_list("${TP_CUDA_SRCS}" TP_CUDA_SRCS)
 
 Here the `TP_CUDA_SRCS` in the input list containing cuda source files and doing a inplace update with  output list `TP_CUDA_SRCS`
 For the file suffix unique string, list variable name itself is passed as a string.
+
+# Custom hipify mapping
+
+Users can define their own custom mapping by adding a custom_hipify_mapping.json from project_directory from where the hipify() function is being called.
+To use a JSON file from a different directory, users can pass in the JSON file path via ```custom_map``` argument in the hipify method.
+The below is the sample JSON file:
+
+```
+{
+    "custom_map" : {
+        "src mapping 1" : "dst mapping 1",
+        "src mapping 2" : "dst mapping 2",
+        ...
+    }
+}
+```
 
 # Intended users
 

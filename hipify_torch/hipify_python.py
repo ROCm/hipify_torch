@@ -48,7 +48,7 @@ to their actual types."""
 PYTORCH_TEMPLATE_MAP = {"Dtype": "scalar_t", "T": "scalar_t"}
 
 # Custom mapping json file (default), if the file is not available hipify call doesn't process it.
-custom_mapping_file = "custom.json"
+custom_mapping_file = "custom_hipify_mappings.json"
 
 class InputError(Exception):
     # Exception raised for errors in the input.
@@ -717,11 +717,10 @@ def update_custom_mappings():
     if os.path.exists(custom_mapping_file):
         with open(custom_mapping_file, 'r') as f:
             json_data = json.load(f)
-        custom_mapping_list = json_data['custom_map']
-        for custom_map in custom_mapping_list:
-            src = list(custom_map.keys())[0]
+        custom_map_dict = json_data['custom_map']
+        for src in custom_map_dict.keys():
             CUSTOM_TRIE.add(src)
-            dst = custom_map[src]
+            dst = custom_map_dict[src]
             CUSTOM_SPECIAL_MAP[src] = dst
 
 """
@@ -770,6 +769,12 @@ def preprocessor(
         # checks SPARSE map first, and if a miss occurs, falls back to pytorch mappings
         return PYTORCH_SPECIAL_MAP.get(m.group(0), pt_repl(m))
 
+    # replace all custom mappings.
+    if len(CUSTOM_SPECIAL_MAP) > 0:
+        RE_CUSTOM_PREPROCESSOR = re.compile(CUSTOM_TRIE.pattern())
+        def custom_repl(m):
+            return CUSTOM_SPECIAL_MAP[m.group(0)]
+        output_source = RE_CUSTOM_PREPROCESSOR.sub(custom_repl, output_source)
 
     if is_pytorch_extension:
         output_source = RE_PYTORCH_PREPROCESSOR.sub(pt_repl, output_source)
@@ -782,13 +787,6 @@ def preprocessor(
             def c2_repl(m):
                 return CAFFE2_MAP[m.group(0)]
             output_source = RE_CAFFE2_PREPROCESSOR.sub(c2_repl, output_source)
-
-    ## replace all custom mappings.
-    if len(CUSTOM_SPECIAL_MAP) > 0:
-        RE_CUSTOM_PREPROCESSOR = re.compile(CUSTOM_TRIE.pattern())
-        def custom_repl(m):
-            return CUSTOM_SPECIAL_MAP[m.group(0)]
-        output_source = RE_CUSTOM_PREPROCESSOR.sub(custom_repl, output_source)
 
     # Header rewrites
     def mk_repl(templ, include_current_dir=True):
