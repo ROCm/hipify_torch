@@ -29,6 +29,7 @@ import re
 import shutil
 import sys
 import os
+import json
 
 from . import constants
 from .cuda_to_hip_mappings import CUDA_TO_HIP_MAPPINGS
@@ -46,6 +47,8 @@ HIPIFY_FINAL_RESULT: HipifyFinalResult = {}
 to their actual types."""
 PYTORCH_TEMPLATE_MAP = {"Dtype": "scalar_t", "T": "scalar_t"}
 
+# Custom mapping json file (default), if the file is not available hipify call doesn't process it.
+custom_mapping_file = "custom_hipify_mappings.json"
 
 class InputError(Exception):
     # Exception raised for errors in the input.
@@ -682,7 +685,8 @@ PYTORCH_MAP: Dict[str, object] = {}
 # When a file contains "sparse" in the filename, a mapping marked with API_SPARSE is preferred over other choices.
 # Similarly, "linalg" files require rocBLAS -> hipSOLVER so they also need special handling.
 PYTORCH_SPECIAL_MAP = {}
-
+CUSTOM_TRIE = Trie()
+CUSTOM_SPECIAL_MAP = {}
 
 for mapping in CUDA_TO_HIP_MAPPINGS:
     assert isinstance(mapping, Mapping)
@@ -707,6 +711,17 @@ RE_QUOTE_HEADER = re.compile(r'#include "([^"]+)"')
 RE_ANGLE_HEADER = re.compile(r'#include <([^>]+)>')
 RE_THC_GENERIC_FILE = re.compile(r'#define THC_GENERIC_FILE "([^"]+)"')
 RE_CU_SUFFIX = re.compile(r'\.cu\b')  # be careful not to pick up .cuh
+
+#  This function takes in the custom json file and looks for custom_mappings available.
+def update_custom_mappings():
+    if os.path.exists(custom_mapping_file):
+        with open(custom_mapping_file, 'r') as f:
+            json_data = json.load(f)
+        custom_map_dict = json_data['custom_map']
+        for src in custom_map_dict.keys():
+            CUSTOM_TRIE.add(src)
+            dst = custom_map_dict[src]
+            CUSTOM_SPECIAL_MAP[src] = dst
 
 """
 Returns a dict with the following keys:
@@ -754,6 +769,12 @@ def preprocessor(
         # checks SPARSE map first, and if a miss occurs, falls back to pytorch mappings
         return PYTORCH_SPECIAL_MAP.get(m.group(0), pt_repl(m))
 
+    # replace all custom mappings.
+    if len(CUSTOM_SPECIAL_MAP) > 0:
+        RE_CUSTOM_PREPROCESSOR = re.compile(CUSTOM_TRIE.pattern())
+        def custom_repl(m):
+            return CUSTOM_SPECIAL_MAP[m.group(0)]
+        output_source = RE_CUSTOM_PREPROCESSOR.sub(custom_repl, output_source)
 
     if is_pytorch_extension:
         output_source = RE_PYTORCH_PREPROCESSOR.sub(pt_repl, output_source)
@@ -962,9 +983,11 @@ def hipify(
     show_detailed: bool = False,
     extensions: Iterable = (".cu", ".cuh", ".c", ".cc", ".cpp", ".h", ".in", ".hpp"),
     header_extensions: Iterable = (".cuh", ".h", ".hpp"),
+    extra_extensions: Iterable = (),
     output_directory: str = "",
     header_include_dirs: Iterable = (),
     includes: Iterable = ('*',),
+    custom_map_list: str = "",
     extra_files: Iterable = (),
     out_of_place_only: bool = False,
     ignores: Iterable = (),
@@ -982,6 +1005,12 @@ def hipify(
         print("The project folder specified does not exist.")
         sys.exit(1)
 
+    # custom mapping json file that is provided by user.
+    if custom_map_list:
+        global custom_mapping_file
+        custom_mapping_file = os.path.abspath(custom_map_list)
+    update_custom_mappings()
+
     # If no output directory, provide a default one.
     if not output_directory:
         project_directory.rstrip("/")
@@ -990,6 +1019,9 @@ def hipify(
     if project_directory != output_directory:
         includes = [include.replace(project_directory, output_directory) for include in includes]
         ignores = [ignore.replace(project_directory, output_directory) for ignore in ignores]
+
+    # update extensions with optional extensions.
+    extensions = extensions + extra_extensions
 
     # Copy from project directory to output directory if not done already.
     if not os.path.exists(output_directory):
