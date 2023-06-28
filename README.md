@@ -105,6 +105,7 @@ For the file suffix unique string, list variable name itself is passed as a stri
 
 Users can define their own custom mapping by adding a custom_hipify_mapping.json from project_directory from where the hipify() function is being called.
 To use a JSON file from a different directory, users can pass in the JSON file path via ```custom_map``` argument in the hipify method.
+The custom hipify mappings will be applied *before* any other default hipify mappings. 
 The below is the sample JSON file:
 
 ```
