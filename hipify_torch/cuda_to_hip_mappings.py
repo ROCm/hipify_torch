@@ -7893,7 +7893,7 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
         ("cusparseDestroy", ("hipsparseDestroy", CONV_MATH_FUNC, API_SPECIAL)),
         ("cusparseGetVersion", ("hipsparseGetVersion", CONV_MATH_FUNC, API_SPECIAL)),
         ("cusparseXcoo2csr", ("hipsparseXcoo2csr", CONV_MATH_FUNC, API_SPECIAL)),
-        ("cusparseMatDescr_t", ("hipsparseMatDescr_t", CONV_MATH_FUNC, API_SPECIAL)),
+        ("cusparseMatDescr_t", ("hipsparseMatDescr_t", CONV_TYPE, API_SPECIAL)),
         ("cusparseDiagType_t", ("hipsparseDiagType_t", CONV_TYPE, API_SPECIAL)),
         ("CUSPARSE_DIAG_TYPE_UNIT", ("HIPSPARSE_DIAG_TYPE_UNIT", CONV_NUMERIC_LITERAL, API_SPECIAL)),
         ("CUSPARSE_DIAG_TYPE_NON_UNIT", ("HIPSPARSE_DIAG_TYPE_NON_UNIT", CONV_NUMERIC_LITERAL, API_SPECIAL)),
