@@ -5028,11 +5028,107 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ("cudaDriverGetVersion", ("hipDriverGetVersion", CONV_VERSION, API_RUNTIME)),
         (
             "cudaRuntimeGetVersion",
-            ("hipRuntimeGetVersion", CONV_VERSION, API_RUNTIME, HIP_UNSUPPORTED),
+            ("hipRuntimeGetVersion", CONV_VERSION, API_RUNTIME),
         ),
         (
             "cudaOccupancyMaxPotentialBlockSize",
             ("hipOccupancyMaxPotentialBlockSize", CONV_OCCUPANCY, API_RUNTIME),
+        ),
+        (
+            "cudaErrorContextIsDestroyed",
+            ("hipErrorContextIsDestroyed", CONV_ERROR, API_RUNTIME),
+        ),
+        (
+            "cudaDeviceSetLimit",
+            ("hipDeviceSetLimit", CONV_DEVICE_FUNC, API_RUNTIME),
+        ),
+        (
+            "cudaMallocAsync",
+            ("hipMallocAsync", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMallocFromPoolAsync",
+            ("hipMallocFromPoolAsync", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaFreeAsync",
+            ("hipFreeAsync", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMemcpy2DFromArray",
+            ("hipMemcpy2DFromArray", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMemcpy2DFromArrayAsync",
+            ("hipMemcpy2DFromArrayAsync", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMemcpy2DToArrayAsync",
+            ("hipMemcpy2DToArrayAsync", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMemcpy3DAsync",
+            ("hipMemcpy3DAsync", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMemPrefetchAsync",
+            ("hipMemPrefetchAsync", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMemAdvise",
+            ("hipMemAdvise", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaDeviceGetDefaultMemPool",
+            ("hipDeviceGetDefaultMemPool", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaDeviceGetMemPool",
+            ("hipDeviceGetMemPool", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaDeviceSetMemPool",
+            ("hipDeviceSetMemPool", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMemPoolCreate",
+            ("hipMemPoolCreate", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMemPoolDestroy",
+            ("hipMemPoolDestroy", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMemPoolTrimTo",
+            ("hipMemPoolTrimTo", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMemPoolGetAttribute",
+            ("hipMemPoolGetAttribute", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMemPoolSetAttribute",
+            ("hipMemPoolSetAttribute", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaLaunchHostFunc",
+            ("hipLaunchHostFunc", CONV_EXEC, API_RUNTIME),
+        ),
+        (
+            "cudaCreateSurfaceObject",
+            ("hipCreateSurfaceObject", CONV_MATH_FUNC, API_RUNTIME),
+        ),
+        (
+            "cudaDestroySurfaceObject",
+            ("hipDestroySurfaceObject", CONV_MATH_FUNC, API_RUNTIME),
+        ),
+        (
+            "cudaGetTextureObjectResourceDesc",
+            ("hipGetTextureObjectResourceDesc", CONV_MATH_FUNC, API_RUNTIME),
+        ),
+        (
+            "cudaGraphUpload",
+            ("hipGraphUpload", CONV_MATH_FUNC, API_RUNTIME),
         ),
         (
             "cudaOccupancyMaxPotentialBlockSizeWithFlags",
