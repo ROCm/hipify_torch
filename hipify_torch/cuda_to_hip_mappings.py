@@ -3388,8 +3388,8 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             "cuProfilerInitialize",
             ("hipProfilerInitialize", CONV_OTHER, API_DRIVER, HIP_UNSUPPORTED),
         ),
-        ("cuProfilerStart", ("roctracer_start", CONV_OTHER, API_DRIVER)),
-        ("cuProfilerStop", ("roctracer_start", CONV_OTHER, API_DRIVER)),
+        ("cuProfilerStart", ("hipProfilerStart", CONV_OTHER, API_DRIVER)),
+        ("cuProfilerStop", ("hipProfilerStop", CONV_OTHER, API_DRIVER)),
         (
             "CU_GL_DEVICE_LIST_ALL",
             ("HIP_GL_DEVICE_LIST_ALL", CONV_GL, API_DRIVER, HIP_UNSUPPORTED),
@@ -5236,8 +5236,8 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             "cudaProfilerInitialize",
             ("hipProfilerInitialize", CONV_OTHER, API_RUNTIME, HIP_UNSUPPORTED),
         ),
-        ("cudaProfilerStart", ("hipProfilerStart", CONV_OTHER, API_RUNTIME)),
-        ("cudaProfilerStop", ("hipProfilerStop", CONV_OTHER, API_RUNTIME)),
+        ("cudaProfilerStart", ("roctracer_start", CONV_OTHER, API_RUNTIME)),
+        ("cudaProfilerStop", ("roctracer_stop", CONV_OTHER, API_RUNTIME)),
         (
             "cudaKeyValuePair",
             ("hipKeyValuePair", CONV_OTHER, API_RUNTIME, HIP_UNSUPPORTED),
