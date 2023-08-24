@@ -5236,8 +5236,8 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             "cudaProfilerInitialize",
             ("hipProfilerInitialize", CONV_OTHER, API_RUNTIME, HIP_UNSUPPORTED),
         ),
-        ("cudaProfilerStart", ("roctracer_start", CONV_OTHER, API_RUNTIME)),
-        ("cudaProfilerStop", ("roctracer_stop", CONV_OTHER, API_RUNTIME)),
+        ("cudaProfilerStart", ("hipProfilerStart", CONV_OTHER, API_RUNTIME)),
+        ("cudaProfilerStop", ("hipProfilerStop", CONV_OTHER, API_RUNTIME)),
         (
             "cudaKeyValuePair",
             ("hipKeyValuePair", CONV_OTHER, API_RUNTIME, HIP_UNSUPPORTED),
