@@ -3865,15 +3865,15 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ("CUDA_C_32U", ("HIP_C_32U", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED)),
         (
             "MAJOR_VERSION",
-            ("hipLibraryMajorVersion", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED),
+            ("HIP_LIBRARY_MAJOR_VERSION", CONV_TYPE, API_RUNTIME),
         ),
         (
             "MINOR_VERSION",
-            ("hipLibraryMinorVersion", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED),
+            ("HIP_LIBRARY_MINOR_VERSION", CONV_TYPE, API_RUNTIME),
         ),
         (
             "PATCH_LEVEL",
-            ("hipLibraryPatchVersion", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED),
+            ("HIP_LIBRARY_PATCH_LEVEL", CONV_TYPE, API_RUNTIME),
         ),
         (
             "cudaMemAttachGlobal",
@@ -8482,8 +8482,12 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
         ("CUBLAS_SIDE_RIGHT", ("HIPSOLVER_SIDE_RIGHT", CONV_NUMERIC_LITERAL, API_SPECIAL)),
 
         ("cusolverEigMode_t", ("hipsolverEigMode_t", CONV_TYPE, API_SPECIAL)),
+        ("cusolverEigType_t", ("hipsolverEigType_t", CONV_TYPE, API_SPECIAL)),
         ("CUSOLVER_EIG_MODE_VECTOR", ("HIPSOLVER_EIG_MODE_VECTOR", CONV_NUMERIC_LITERAL, API_SPECIAL)),
         ("CUSOLVER_EIG_MODE_NOVECTOR", ("HIPSOLVER_EIG_MODE_NOVECTOR", CONV_NUMERIC_LITERAL, API_SPECIAL)),
+        ("CUSOLVER_EIG_TYPE_1", ("HIPSOLVER_EIG_TYPE_1", CONV_NUMERIC_LITERAL, API_SPECIAL)),
+        ("CUSOLVER_EIG_TYPE_2", ("HIPSOLVER_EIG_TYPE_2", CONV_NUMERIC_LITERAL, API_SPECIAL)),
+        ("CUSOLVER_EIG_TYPE_3", ("HIPSOLVER_EIG_TYPE_3", CONV_NUMERIC_LITERAL, API_SPECIAL)),
 
         ("syevjInfo_t", ("hipsolverSyevjInfo_t", CONV_TYPE, API_SPECIAL)),
         ("cusolverDnCreateSyevjInfo", ("hipsolverDnCreateSyevjInfo", CONV_MATH_FUNC, API_SPECIAL)),
@@ -8498,6 +8502,7 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
         ("cusolverDnHandle_t", ("hipsolverDnHandle_t", CONV_TYPE, API_SPECIAL)),
         ("cusolverDnCreate", ("hipsolverDnCreate", CONV_MATH_FUNC, API_SPECIAL)),
         ("cusolverDnSetStream", ("hipsolverDnSetStream", CONV_MATH_FUNC, API_SPECIAL)),
+        ("cusolverDnGetStream", ("hipsolverDnGetStream", CONV_MATH_FUNC, API_SPECIAL)),
         ("cusolverDnDestroy", ("hipsolverDnDestroy", CONV_MATH_FUNC, API_SPECIAL)),
 
         # from aten/src/ATen/native/hip/linalg/HIPSolver.cpp
@@ -8638,6 +8643,22 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
         ('cusolverDnXgesvdjSetTolerance', ('hipsolverDnXgesvdjSetTolerance', CONV_MATH_FUNC, API_SPECIAL)),
         ('cusolverDnXgesvdjSetMaxSweeps', ('hipsolverDnXgesvdjSetMaxSweeps', CONV_MATH_FUNC, API_SPECIAL)),
 
+        # gebrd
+        ('cusolverDnSgebrd_bufferSize', ('hipsolverDnSgebrd_bufferSize', CONV_MATH_FUNC, API_SPECIAL)),
+        ('cusolverDnDgebrd_bufferSize', ('hipsolverDnDgebrd_bufferSize', CONV_MATH_FUNC, API_SPECIAL)),
+        ('cusolverDnCgebrd_bufferSize', ('hipsolverDnCgebrd_bufferSize', CONV_MATH_FUNC, API_SPECIAL)),
+        ('cusolverDnZgebrd_bufferSize', ('hipsolverDnZgebrd_bufferSize', CONV_MATH_FUNC, API_SPECIAL)),
+        ('cusolverDnSgebrd', ('hipsolverDnSgebrd', CONV_MATH_FUNC, API_SPECIAL)),
+        ('cusolverDnDgebrd', ('hipsolverDnDgebrd', CONV_MATH_FUNC, API_SPECIAL)),
+        ('cusolverDnCgebrd', ('hipsolverDnCgebrd', CONV_MATH_FUNC, API_SPECIAL)),
+        ('cusolverDnZgebrd', ('hipsolverDnZgebrd', CONV_MATH_FUNC, API_SPECIAL)),
+
+        ('cusolverDnXgesvdjGetSweeps', ('hipsolverDnXgesvdjGetSweeps', CONV_MATH_FUNC, API_SPECIAL)),
+        ('cusolverDnXsyevjSetTolerance', ('hipsolverDnXsyevjSetTolerance', CONV_MATH_FUNC, API_SPECIAL)),
+        ('cusolverDnXsyevjSetMaxSweeps', ('hipsolverDnXsyevjSetMaxSweeps', CONV_MATH_FUNC, API_SPECIAL)),
+        ('cusolverDnXsyevjGetResidual', ('hipsolverDnXsyevjGetResidual', CONV_MATH_FUNC, API_SPECIAL)),
+        ('cusolverDnXgesvdjGetResidual', ('hipsolverDnXgesvdjGetResidual', CONV_MATH_FUNC, API_SPECIAL)),
+        ('cusolverDnXsyevjGetSweeps', ('hipsolverDnXsyevjGetSweeps', CONV_MATH_FUNC, API_SPECIAL)),
     ]
 )
 
