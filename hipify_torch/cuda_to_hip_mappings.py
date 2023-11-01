@@ -587,8 +587,8 @@ CUDA_INCLUDE_MAP = collections.OrderedDict(
             ('include "hip/hip_runtime.h', CONV_INCLUDE_CUDA_MAIN_H, API_DRIVER),
         ),
         (
-            "cuda_runtime.h",
-            ("hip/hip_runtime.h", CONV_INCLUDE_CUDA_MAIN_H, API_RUNTIME),
+            "include <cuda_runtime.h",
+            ("include <hip/hip_runtime.h", CONV_INCLUDE_CUDA_MAIN_H, API_RUNTIME),
         ),
         ("cuda_runtime_api.h", ("hip/hip_runtime_api.h", CONV_INCLUDE, API_RUNTIME)),
         ("cuda_profiler_api.h", ("hip/hip_runtime_api.h", CONV_INCLUDE, API_RUNTIME)),
@@ -8938,7 +8938,9 @@ C10_MAPPINGS = collections.OrderedDict(
         # This substitution is not permissible, because there's another copy of this
         # function in torch/cuda.h
         # ("cuda::device_count", ("hip::device_count", API_C10)),
-        ("cuda::current_device", ("hip::current_device", API_C10)),
+        # This one should go with the previous one for Transformer Engine
+        # otherwise it will result in one namespace access partially substituted
+        # ("cuda::current_device", ("hip::current_device", API_C10)),
         ("cuda::set_device", ("hip::set_device", API_C10)),
         ("cuda::device_synchronize", ("hip::device_synchronize", API_C10)),
         ("cuda::getStreamFromPool", ("hip::getStreamFromPool", API_C10)),
