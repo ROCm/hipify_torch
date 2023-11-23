@@ -75,8 +75,8 @@ endfunction()
 #                   When set, it is having higher precendence over CUDA_SOURCE_DIR/HIP_SOURCE_DIR.
 function(hipify)
   set(flags)
-  set(singleValueArgs CUDA_SOURCE_DIR HIP_SOURCE_DIR CONFIG_FILE)
-  set(multiValueArgs HEADER_INCLUDE_DIR)
+  set(singleValueArgs CUDA_SOURCE_DIR HIP_SOURCE_DIR CONFIG_FILE CUSTOM_MAP_FILE)
+  set(multiValueArgs HEADER_INCLUDE_DIR IGNORES)
 
   cmake_parse_arguments(HIPIFY "${flags}" "${singleValueArgs}" "${multiValueArgs}" ${ARGN})
 
@@ -95,6 +95,8 @@ function(hipify)
       --project-directory ${HIPIFY_CUDA_SOURCE_DIR}
       --output-directory ${HIPIFY_HIP_SOURCE_DIR}
       --header-include-dirs [${HIPIFY_HEADER_INCLUDE_DIR}]
+      --ignores [${HIPIFY_IGNORES}]
+      --custom-map-json ${HIPIFY_CUSTOM_MAP_FILE}
       --dump-dict-file ${HIPIFY_DICT_FILE}
     )
   else()
