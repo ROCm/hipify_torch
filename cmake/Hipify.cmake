@@ -96,9 +96,11 @@ function(hipify)
       --output-directory ${HIPIFY_HIP_SOURCE_DIR}
       --header-include-dirs [${HIPIFY_HEADER_INCLUDE_DIR}]
       --ignores [${HIPIFY_IGNORES}]
-      --custom-map-json ${HIPIFY_CUSTOM_MAP_FILE}
       --dump-dict-file ${HIPIFY_DICT_FILE}
     )
+    if (HIPIFY_CUSTOM_MAP_FILE)
+      list(APPEND HIPIFY_COMMAND --custom-map-json ${HIPIFY_CUSTOM_MAP_FILE})
+    endif()
   else()
     message(FATAL_ERROR "Wrong invocation, either CUDA_SOURCE_DIR or CONFIG_FILE input parameter is required")
   endif()
