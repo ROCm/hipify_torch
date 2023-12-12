@@ -51,6 +51,12 @@ def main():
         required=False)
 
     parser.add_argument(
+        '--custom-map-json',
+        type=str,
+        help="path of json which contains project specific hipifying mappings",
+        required=False)
+
+    parser.add_argument(
         '--dump-dict-file',
         default='hipify_output_dict_dump.txt',
         type=str,
@@ -89,6 +95,7 @@ def main():
                     ignores = json_args['ignores']
                 else:
                     ignores = []
+                custom_map_list=json_args.get("custom_map_json", "")
                 if(json_args.get('extra_files') is not None):
                     extra_files = json_args['extra_files']
                 else:
@@ -109,8 +116,11 @@ def main():
         else:
             output_directory = args.project_directory
         includes=args.includes
-        ignores=args.ignores
-        header_include_dirs=args.header_include_dirs
+        ignores=args.ignores if type(args.ignores) is list \
+            else args.ignores.strip("[]").split(";")
+        header_include_dirs=args.header_include_dirs if type(args.header_include_dirs) is list \
+            else args.header_include_dirs.strip("[]").split(";")
+        custom_map_list=args.custom_map_json or ""
         extra_files = []
         hipify_extra_files_only = False
     dump_dict_file = args.dump_dict_file
@@ -121,8 +131,8 @@ def main():
         output_directory=output_directory,
         includes=includes,
         ignores=ignores,
-        header_include_dirs=args.header_include_dirs if type(args.header_include_dirs) is list \
-            else args.header_include_dirs.strip("[]").split(";"),
+        header_include_dirs=header_include_dirs,
+        custom_map_list=custom_map_list,
         extra_files=extra_files,
         is_pytorch_extension=True,
         hipify_extra_files_only=hipify_extra_files_only,
