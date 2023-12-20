@@ -590,6 +590,10 @@ CUDA_INCLUDE_MAP = collections.OrderedDict(
             "include <cuda_runtime.h",
             ("include <hip/hip_runtime.h", CONV_INCLUDE_CUDA_MAIN_H, API_RUNTIME),
         ),
+        (
+            'include "cuda_runtime.h',
+            ('include "hip/hip_runtime.h', CONV_INCLUDE_CUDA_MAIN_H, API_RUNTIME),
+        ),
         ("cuda_runtime_api.h", ("hip/hip_runtime_api.h", CONV_INCLUDE, API_RUNTIME)),
         ("cuda_profiler_api.h", ("hip/hip_runtime_api.h", CONV_INCLUDE, API_RUNTIME)),
         (
