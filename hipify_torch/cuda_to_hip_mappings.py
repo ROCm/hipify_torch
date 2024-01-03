@@ -3847,6 +3847,7 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
                 HIP_UNSUPPORTED,
             ),
         ),
+        #check these two mappings before merging upstream
         ("cudaDataType_t", ("hipDataType", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED)),
         ("cudaDataType", ("hipblasDatatype_t", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED)),
         ("CUDA_R_16F", ("HIP_R_16F", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED)),
