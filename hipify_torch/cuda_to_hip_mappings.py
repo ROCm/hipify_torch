@@ -3847,8 +3847,8 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
                 HIP_UNSUPPORTED,
             ),
         ),
-        ("cudaDataType_t", ("hipDataType_t", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED)),
-        ("cudaDataType", ("hipDataType", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED)),
+        ("cudaDataType_t", ("hipDataType", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED)),
+        ("cudaDataType", ("hipblasDatatype_t", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED)),
         ("CUDA_R_16F", ("HIP_R_16F", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED)),
         ("CUDA_C_16F", ("HIP_C_16F", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED)),
         ("CUDA_R_32F", ("HIP_R_32F", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED)),
@@ -6181,13 +6181,10 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             ),
         ),
         ("cublasInit", ("hipblasInit", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED)),
+        ("cublasGemmAlgo_t", ("hipblasGemmAlgo_t", CONV_TYPE, API_BLAS, HIP_UNSUPPORTED)),
         (
             "cublasShutdown",
             ("hipblasShutdown", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED),
-        ),
-        (
-            "cublasGetVersion",
-            ("hipblasGetVersion", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED),
         ),
         (
             "cublasGetError",
@@ -6206,14 +6203,6 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         (
             "cublasSetAtomicsMode",
             ("hipblasSetAtomicsMode", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED),
-        ),
-        (
-            "cublasGetMathMode",
-            ("hipblasGetMathMode", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED),
-        ),
-        (
-            "cublasSetMathMode",
-            ("hipblasSetMathMode", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED),
         ),
         ("CUBLAS_OP_N", ("HIPBLAS_OP_N", CONV_NUMERIC_LITERAL, API_BLAS)),
         (
@@ -6328,7 +6317,6 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             ("HIPBLAS_DATA_INT8", CONV_NUMERIC_LITERAL, API_BLAS, HIP_UNSUPPORTED),
         ),
         ("CUBLAS_GEMM_DEFAULT", ("HIPBLAS_GEMM_DEFAULT", CONV_NUMERIC_LITERAL, API_BLAS)),
-        ("CUBLAS_GEMM_DEFAULT_TENSOR_OP", ("HIPBLAS_GEMM_DEFAULT", CONV_NUMERIC_LITERAL, API_BLAS)),
         ("cublasCreate", ("hipblasCreate", CONV_MATH_FUNC, API_BLAS)),
         ("cublasDestroy", ("hipblasDestroy", CONV_MATH_FUNC, API_BLAS)),
         ("cublasSetVector", ("hipblasSetVector", CONV_MATH_FUNC, API_BLAS)),
@@ -6763,12 +6751,8 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ("cublasDdgmm", ("hipblasDdgmm", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED)),
         ("cublasCdgmm", ("hipblasCdgmm", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED)),
         ("cublasZdgmm", ("hipblasZdgmm", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED)),
-        ("cublasStpttr", ("hipblasStpttr", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED)),
-        ("cublasDtpttr", ("hipblasDtpttr", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED)),
         ("cublasCtpttr", ("hipblasCtpttr", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED)),
         ("cublasZtpttr", ("hipblasZtpttr", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED)),
-        ("cublasStrttp", ("hipblasStrttp", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED)),
-        ("cublasDtrttp", ("hipblasDtrttp", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED)),
         ("cublasCtrttp", ("hipblasCtrttp", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED)),
         ("cublasZtrttp", ("hipblasZtrttp", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED)),
         ("cublasCreate_v2", ("hipblasCreate_v2", CONV_MATH_FUNC, API_BLAS)),
@@ -7064,10 +7048,6 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         (
             "cublasZgemm3m",
             ("hipblasZgemm3m", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED),
-        ),
-        (
-            "cublasSgemmEx",
-            ("hipblasSgemmEx", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED),
         ),
         ("cublasGemmEx", ("hipblasGemmEx", CONV_MATH_FUNC, API_BLAS, HIP_UNSUPPORTED)),
         (
