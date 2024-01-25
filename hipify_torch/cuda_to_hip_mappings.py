@@ -7181,6 +7181,7 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ),
         ("cuComplex", ("hipComplex", CONV_TYPE, API_BLAS)),
         ("cuDoubleComplex", ("hipDoubleComplex", CONV_TYPE, API_BLAS)),
+        ("cublasComputeType_t", ("hipblasComputeType_t", CONV_TYPE, API_BLAS)),
         ("cufftResult_t", ("hipfftResult_t", CONV_TYPE, API_FFT)),
         ("cufftResult", ("hipfftResult", CONV_TYPE, API_FFT)),
         ("CUFFT_SUCCESS", ("HIPFFT_SUCCESS", CONV_NUMERIC_LITERAL, API_FFT)),
