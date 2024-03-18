@@ -581,8 +581,12 @@ CUDA_INCLUDE_MAP = collections.OrderedDict(
             ('include "hip/hip_runtime.h', CONV_INCLUDE_CUDA_MAIN_H, API_DRIVER),
         ),
         (
-            "cuda_runtime.h",
-            ("hip/hip_runtime.h", CONV_INCLUDE_CUDA_MAIN_H, API_RUNTIME),
+            "include <cuda_runtime.h",
+            ("include <hip/hip_runtime.h", CONV_INCLUDE_CUDA_MAIN_H, API_RUNTIME),
+        ),
+        (
+            'include "cuda_runtime.h',
+            ('include "hip/hip_runtime.h', CONV_INCLUDE_CUDA_MAIN_H, API_RUNTIME),
         ),
         ("cuda_runtime_api.h", ("hip/hip_runtime_api.h", CONV_INCLUDE, API_RUNTIME)),
         ("cuda_profiler_api.h", ("hip/hip_runtime_api.h", CONV_INCLUDE, API_RUNTIME)),
@@ -7401,8 +7405,10 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ("nvtxMark", ("roctxMark", CONV_OTHER, API_ROCTX)),
         ("nvtxMarkA", ("roctxMarkA", CONV_OTHER, API_ROCTX)),
         ("nvtxRangePushA", ("roctxRangePushA", CONV_OTHER, API_ROCTX)),
+        ("nvtxRangePush", ("roctxRangePush", CONV_OTHER, API_ROCTX)),
         ("nvtxRangePop", ("roctxRangePop", CONV_OTHER, API_ROCTX)),
         ("nvtxRangeStartA", ("roctxRangeStartA", CONV_OTHER, API_ROCTX)),
+        ("nvtxRangeStart", ("roctxRangeStart", CONV_OTHER, API_ROCTX)),
         ("nvtxRangeEnd", ("roctxRangeStop", CONV_OTHER, API_ROCTX)),
         ("nvmlReturn_t", ("rsmi_status_t", CONV_OTHER, API_ROCMSMI)),
         ("NVML_SUCCESS", ("RSMI_STATUS_SUCCESS", CONV_OTHER, API_ROCMSMI)),
@@ -8388,7 +8394,7 @@ C10_MAPPINGS = collections.OrderedDict(
         # This substitution is not permissible, because there's another copy of this
         # function in torch/cuda.h
         # ("cuda::device_count", ("hip::device_count", API_C10)),
-        ("cuda::current_device", ("hip::current_device", API_C10)),
+        ("at::cuda::current_device", ("at::hip::current_device", API_C10)),
         ("cuda::set_device", ("hip::set_device", API_C10)),
         ("cuda::device_synchronize", ("hip::device_synchronize", API_C10)),
         ("cuda::getStreamFromPool", ("hip::getStreamFromPool", API_C10)),
