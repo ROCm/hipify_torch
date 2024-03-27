@@ -368,14 +368,12 @@ CUDA_TYPE_NAME_MAP = collections.OrderedDict(
         ("cudaResourceType", ("hipResourceType", CONV_TEX, API_RUNTIME)),
         ("cudaResourceViewFormat", ("hipResourceViewFormat", CONV_TEX, API_RUNTIME)),
         ("cudaTextureAddressMode", ("hipTextureAddressMode", CONV_TEX, API_RUNTIME)),
-        (
-            "cudaSurfaceBoundaryMode",
-            ("hipSurfaceBoundaryMode", CONV_SURFACE, API_RUNTIME, HIP_UNSUPPORTED),
-        ),
+        ("cudaSurfaceBoundaryMode", ("hipSurfaceBoundaryMode", CONV_SURFACE, API_RUNTIME)),
         (
             "cudaSurfaceFormatMode",
             ("hipSurfaceFormatMode", CONV_SURFACE, API_RUNTIME, HIP_UNSUPPORTED),
         ),
+        ("cudaSurfaceObject_t", ("hipSurfaceObject_t", CONV_SURFACE, API_RUNTIME)),
         ("cudaTextureType1D", ("hipTextureType1D", CONV_TEX, API_RUNTIME)),
         ("cudaTextureType2D", ("hipTextureType2D", CONV_TEX, API_RUNTIME)),
         ("cudaTextureType3D", ("hipTextureType3D", CONV_TEX, API_RUNTIME)),
@@ -392,6 +390,7 @@ CUDA_TYPE_NAME_MAP = collections.OrderedDict(
             "cudaTextureTypeCubemapLayered",
             ("hipTextureTypeCubemapLayered", CONV_TEX, API_RUNTIME),
         ),
+        ("cudaUUID_t", ("hipUUID", CONV_OTHER, API_RUNTIME)),
         ("cudaIpcEventHandle_t", ("hipIpcEventHandle_t", CONV_TYPE, API_RUNTIME)),
         ("cudaIpcEventHandle_st", ("hipIpcEventHandle_t", CONV_TYPE, API_RUNTIME)),
         ("cudaIpcMemHandle_t", ("hipIpcMemHandle_t", CONV_TYPE, API_RUNTIME)),
@@ -3869,6 +3868,9 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             "PATCH_LEVEL",
             ("HIP_LIBRARY_PATCH_LEVEL", CONV_TYPE, API_RUNTIME),
         ),
+        ("cudaMemAllocationHandleType", ("hipMemAllocationHandleType", CONV_TYPE, API_RUNTIME)),
+        ("cudaMemAllocationType", ("hipMemAllocationType", CONV_TYPE, API_RUNTIME)),
+        ("cudaMemLocationType", ("hipMemLocationType", CONV_TYPE, API_RUNTIME)),
         (
             "cudaMemAttachGlobal",
             ("hipMemAttachGlobal", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED),
@@ -4099,6 +4101,7 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             "cudaHostAllocWriteCombined",
             ("hipHostMallocWriteCombined", CONV_MEM, API_RUNTIME),
         ),
+        ("cudaHostFn_t", ("hipHostFn_t", CONV_MEM, API_RUNTIME)),
         ("cudaHostGetFlags", ("hipHostGetFlags", CONV_MEM, API_RUNTIME)),
         ("cudaHostRegisterDefault", ("hipHostRegisterDefault", CONV_MEM, API_RUNTIME)),
         (
@@ -4159,6 +4162,7 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ("cudaStreamCaptureModeRelaxed", ("hipStreamCaptureModeRelaxed", CONV_TYPE, API_RUNTIME)),
         ("cudaStreamBeginCapture", ("hipStreamBeginCapture", CONV_TYPE, API_RUNTIME)),
         ("cudaStreamEndCapture", ("hipStreamEndCapture", CONV_TYPE, API_RUNTIME)),
+        ("cudaGraphNode_t", ("hipGraphNode_t", CONV_TYPE, API_RUNTIME)),
         ("cudaGraphInstantiate", ("hipGraphInstantiate", CONV_TYPE, API_RUNTIME)),
         ("cudaGraphDestroy", ("hipGraphDestroy", CONV_TYPE, API_RUNTIME)),
         ("cudaGraphExecDestroy", ("hipGraphExecDestroy", CONV_TYPE, API_RUNTIME)),
@@ -4192,10 +4196,8 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ),
         ("cudaThreadSynchronize", ("hipDeviceSynchronize", CONV_THREAD, API_RUNTIME)),
         ("cudaDeviceGetAttribute", ("hipDeviceGetAttribute", CONV_DEVICE, API_RUNTIME)),
-        (
-            "cudaDevAttrMaxThreadsPerBlock",
-            ("hipDeviceAttributeMaxThreadsPerBlock", CONV_TYPE, API_RUNTIME),
-        ),
+        ("cudaDevAttrMaxThreadsPerBlock", ("hipDeviceAttributeMaxThreadsPerBlock", CONV_TYPE, API_RUNTIME)),
+        ("cudaDevAttrMaxBlocksPerMultiprocessor", ("hipDeviceAttributeMaxBlocksPerMultiprocessor", CONV_TYPE, API_RUNTIME)),
         (
             "cudaDevAttrMaxBlockDimX",
             ("hipDeviceAttributeMaxBlockDimX", CONV_TYPE, API_RUNTIME),
@@ -4271,6 +4273,9 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             "cudaDevAttrIntegrated",
             ("hipDeviceAttributeIntegrated", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED),
         ),
+        ("cudaDevAttrReserved94", ("hipDeviceAttributeCanUseStreamWaitValue", CONV_TYPE, API_RUNTIME)),
+        ("cudaDevAttrCooperativeLaunch", ("hipDeviceAttributeCooperativeLaunch", CONV_TYPE, API_RUNTIME)),
+        ("cudaDevAttrCooperativeMultiDeviceLaunch", ("hipDeviceAttributeCooperativeMultiDeviceLaunch", CONV_TYPE, API_RUNTIME)),
         (
             "cudaDevAttrCanMapHostMemory",
             (
@@ -4382,6 +4387,7 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             "cudaDevAttrEccEnabled",
             ("hipDeviceAttributeEccEnabled", CONV_TYPE, API_RUNTIME, HIP_UNSUPPORTED),
         ),
+        ("cudaDevAttrMemoryPoolsSupported", ("hipDeviceAttributeMemoryPoolsSupported", CONV_TYPE, API_RUNTIME)),
         ("cudaDevAttrPciBusId", ("hipDeviceAttributePciBusId", CONV_TYPE, API_RUNTIME)),
         (
             "cudaDevAttrPciDeviceId",
@@ -4753,9 +4759,25 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             ),
         ),
         (
+            "cudaDevAttrMaxSharedMemoryPerBlockOptin",
+            (
+                "hipDeviceAttributeSharedMemPerBlockOptin",
+                CONV_TYPE,
+                API_RUNTIME,
+            ),
+        ),
+        (
             "cudaDevAttrMaxSharedMemoryPerMultiprocessor",
             (
                 "hipDeviceAttributeMaxSharedMemoryPerMultiprocessor",
+                CONV_TYPE,
+                API_RUNTIME,
+            ),
+        ),
+        (
+            "cudaDevAttrHostRegisterSupported",
+            (
+                "hipDeviceAttributeHostRegisterSupported",
                 CONV_TYPE,
                 API_RUNTIME,
             ),
@@ -4778,6 +4800,7 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
                 HIP_UNSUPPORTED,
             ),
         ),
+        ("cudaDevAttrDirectManagedMemAccessFromHost", ("hipDeviceAttributeDirectManagedMemAccessFromHost", CONV_TYPE, API_RUNTIME)),
         (
             "cudaDevAttrIsMultiGpuBoard",
             ("hipDeviceAttributeIsMultiGpuBoard", CONV_TYPE, API_RUNTIME),
@@ -4818,6 +4841,7 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
                 HIP_UNSUPPORTED,
             ),
         ),
+        ("cudaDevAttrPageableMemoryAccessUsesHostPageTables", ("hipDeviceAttributePageableMemoryAccessUsesHostPageTables", CONV_TYPE, API_RUNTIME)),
         (
             "cudaDevAttrConcurrentManagedAccess",
             (
@@ -5084,6 +5108,31 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
             "cudaDeviceSetMemPool",
             ("hipDeviceSetMemPool", CONV_MEM, API_RUNTIME),
         ),
+        (
+            "cudaMemPool_t",
+            ("hipMemPool_t", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMemPoolAttr",
+            ("hipMemPoolAttr", CONV_MEM, API_RUNTIME),
+        ),
+        (
+            "cudaMemPoolProps",
+            ("hipMemPoolProps", CONV_MEM, API_RUNTIME),
+        ),
+        ("cudaMemPoolReuseFollowEventDependencies", ("hipMemPoolReuseFollowEventDependencies", CONV_MEM, API_RUNTIME)),
+        ("cudaMemPoolReuseAllowOpportunistic", ("hipMemPoolReuseAllowOpportunistic", CONV_MEM, API_RUNTIME)),
+        ("cudaMemPoolReuseAllowInternalDependencies", ("hipMemPoolReuseAllowInternalDependencies", CONV_MEM, API_RUNTIME)),
+        ("cudaMemPoolAttrReleaseThreshold", ("hipMemPoolAttrReleaseThreshold", CONV_MEM, API_RUNTIME)),
+        ("cudaMemPoolAttrReservedMemCurrent", ("hipMemPoolAttrReservedMemCurrent", CONV_MEM, API_RUNTIME)),
+        ("cudaMemPoolAttrReservedMemHigh", ("hipMemPoolAttrReservedMemHigh", CONV_MEM, API_RUNTIME)),
+        ("cudaMemPoolAttrUsedMemCurrent", ("hipMemPoolAttrUsedMemCurrent", CONV_MEM, API_RUNTIME)),
+        ("cudaMemPoolAttrUsedMemHigh", ("hipMemPoolAttrUsedMemHigh", CONV_MEM, API_RUNTIME)),
+        ("cudaMemAllocationTypePinned", ("hipMemAllocationTypePinned", CONV_MEM, API_RUNTIME)),
+        ("cudaMemHandleTypeNone", ("hipMemHandleTypeNone", CONV_MEM, API_RUNTIME)),
+        ("cudaMemHandleTypePosixFileDescriptor", ("hipMemHandleTypePosixFileDescriptor", CONV_MEM, API_RUNTIME)),
+        ("cudaMemLocation", ("hipMemLocation", CONV_MEM, API_RUNTIME)),
+        ("cudaMemLocationTypeDevice", ("hipMemLocationTypeDevice", CONV_MEM, API_RUNTIME)),
         (
             "cudaMemPoolCreate",
             ("hipMemPoolCreate", CONV_MEM, API_RUNTIME),
