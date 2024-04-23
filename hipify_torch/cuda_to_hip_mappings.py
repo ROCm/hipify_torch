@@ -7960,6 +7960,262 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
             "CUSPARSE_MATRIX_TYPE_GENERAL",
             ("HIPSPARSE_MATRIX_TYPE_GENERAL", CONV_NUMERIC_LITERAL, API_SPECIAL),
         ),
+        (
+            "cusparseGetErrorName",
+            ("hipsparseGetErrorName", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCreate",
+            ("hipsparseCreate", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCreateMatDescr",
+            ("hipsparseCreateMatDescr", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSetMatIndexBase",
+            ("hipsparseSetMatFillMode", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSetMatType",
+            ("hipsparseSetMatType", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSetMatFillMode",
+            ("hipsparseSetMatFillMode", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSetMatDiagType",
+            ("hipsparseSetMatDiagType", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSetPointerMode",
+            ("hipsparseSetPointerMode", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSetStream",
+            ("hipsparseSetStream", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseScsrmm",
+            ("hipsparseScsrmm", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseDcsrmm",
+            ("hipsparseDcsrmm", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCcsrmm",
+            ("hipsparseCcsrmm", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseZcsrmm",
+            ("hipsparseZcsrmm", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseScsrmm2",
+            ("hipsparseScsrmm2", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseDcsrmm2",
+            ("hipsparseDcsrmm2", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCcsrmm2",
+            ("hipsparseCcsrmm2", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseZcsrmm2",
+            ("hipsparseZcsrmm2", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseScsrgeam",
+            ("hipsparseScsrgeam", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseDcsrgeam",
+            ("hipsparseDcsrgeam", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCcsrgeam",
+            ("hipsparseCcsrgeam", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseZcsrgeam",
+            ("hipsparseZcsrgeam", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseScsrgeam2_bufferSizeExt",
+            ("hipsparseScsrgeam2_bufferSizeExt", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseDcsrgeam2_bufferSizeExt",
+            ("hipsparseDcsrgeam2_bufferSizeExt", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCcsrgeam2_bufferSizeExt",
+            ("hipsparseCcsrgeam2_bufferSizeExt", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseZcsrgeam2_bufferSizeExt",
+            ("hipsparseZcsrgeam2_bufferSizeExt", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseXcsrgeam2Nnz",
+            ("hipsparseXcsrgeam2Nnz", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseScsrgeam2",
+            ("hipsparseScsrgeam2", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseDcsrgeam2",
+            ("hipsparseDcsrgeam2", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCcsrgeam2",
+            ("hipsparseCcsrgeam2", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseZcsrgeam2",
+            ("hipsparseZcsrgeam2", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseScsrgemm",
+            ("hipsparseScsrgemm", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseDcsrgemm",
+            ("hipsparseDcsrgemm", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCreateCsrgemm2Info",
+            ("hipsparseCreateCsrgemm2Info", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseDestroyCsrgemm2Info",
+            ("hipsparseDestroyCsrgemm2Info", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseScsrgemm2_bufferSizeExt",
+            ("hipsparseScsrgemm2_bufferSizeExt", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseDcsrgemm2_bufferSizeExt",
+            ("hipsparseDcsrgemm2_bufferSizeExt", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseXcsrgemm2Nnz",
+            ("hipsparseXcsrgemm2Nnz", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseScsrgemm2",
+            ("hipsparseScsrgemm2", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseDcsrgemm2",
+            ("hipsparseDcsrgemm2", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseXcoo2csr",
+            ("hipsparseXcoo2csr", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCreateIdentityPermutation",
+            ("hipsparseCreateIdentityPermutation", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseXcoosort_bufferSizeExt",
+            ("hipsparseXcoosort_bufferSizeExt", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseXcoosortByRow",
+            ("hipsparseXcoosortByRow", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseXcsrsort_bufferSizeExt",
+            ("hipsparseXcsrsort_bufferSizeExt", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseXcsrsort",
+            ("hipsparseXcsrsort", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCreateCoo",
+            ("hipsparseCreateCoo", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCreateCsr",
+            ("hipsparseCreateCsr", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseDestroySpMat",
+            ("hipsparseDestroySpMat", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCsrSetPointers",
+            ("hipsparseCsrSetPointers", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpMatGetSize",
+            ("hipsparseSpMatGetSize", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCreateDnVec",
+            ("hipsparseCreateDnVec", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseDestroyDnVec",
+            ("hipsparseDestroyDnVec", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCreateDnMat",
+            ("hipsparseCreateDnMat", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseDestroyDnMat",
+            ("hipsparseDestroyDnMat", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseDnMatSetStridedBatch",
+            ("hipsparseDnMatSetStridedBatch", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpMV_bufferSize",
+            ("hipsparseSpMV_bufferSize", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpMV",
+            ("hipsparseSpMV", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpMM_bufferSize",
+            ("hipsparseSpMM_bufferSize", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpMM",
+            ("hipsparseSpMM", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpGEMM_createDescr",
+            ("hipsparseSpGEMM_createDescr", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpGEMM_destroyDescr",
+            ("hipsparseSpGEMM_destroyDescr", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpGEMM_workEstimation",
+            ("hipsparseSpGEMM_workEstimation", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpGEMM_compute",
+            ("hipsparseSpGEMM_compute", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpGEMM_copy",
+            ("hipsparseSpGEMM_copy", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
         #SOLVER
         ("cuComplex", ("hipComplex", CONV_TYPE, API_SPECIAL)),
         ("cuDoubleComplex", ("hipDoubleComplex", CONV_TYPE, API_SPECIAL)),
