@@ -7964,6 +7964,18 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
             "cusparseGetErrorName",
             ("hipsparseGetErrorName", CONV_NUMERIC_LITERAL, API_SPECIAL),
         ),
+        (
+            "cusparseOrder_t",
+            ("hipsparseOrder_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpGEMMAlg_t",
+            ("hipsparseSpGEMMAlg_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseCsr2CscAlg_t",
+            ("hipsparseCsr2CscAlg_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
         #SOLVER
         ("cuComplex", ("hipComplex", CONV_TYPE, API_SPECIAL)),
         ("cuDoubleComplex", ("hipDoubleComplex", CONV_TYPE, API_SPECIAL)),
