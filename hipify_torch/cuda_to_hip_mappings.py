@@ -7992,6 +7992,42 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
             "cusparseDenseToSparseAlg_t",
             ("hipsparseDenseToSparseAlg_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
         ),
+        (
+            "cusparseIndexBase_t",
+            ("hipsparseIndexBase_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseMatrixType_t",
+            ("hipsparseMatrixType_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparsePointerMode_t",
+            ("hipsparsePointerMode_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseAction_t",
+            ("hipsparseAction_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseFormat_t",
+            ("hipsparseFormat_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpSMAlg_t",
+            ("hipsparseSpSMAlg_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpMatAttribute_t",
+            ("hipsparseSpMatAttribute_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpVecDescr_t",
+            ("hipsparseSpVecDescr_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "cusparseSpSMDescr_t",
+            ("hipsparseSpSMDescr_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
         #SOLVER
         ("cuComplex", ("hipComplex", CONV_TYPE, API_SPECIAL)),
         ("cuDoubleComplex", ("hipDoubleComplex", CONV_TYPE, API_SPECIAL)),
