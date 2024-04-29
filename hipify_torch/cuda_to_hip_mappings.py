@@ -8028,6 +8028,90 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
             "cusparseSpSMDescr_t",
             ("hipsparseSpSMDescr_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
         ),
+        (
+            "CUSPARSE_POINTER_MODE_DEVICE",
+            ("HIPSPARSE_POINTER_MODE_DEVICE", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "CUSPARSE_ACTION_SYMBOLIC",
+            ("HIPSPARSE_ACTION_SYMBOLIC", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "CUSPARSE_ACTION_NUMERIC",
+            ("HIPSPARSE_ACTION_NUMERIC", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "CUSPARSE_MATRIX_TYPE_SYMMETRIC",
+            ("HIPSPARSE_MATRIX_TYPE_SYMMETRIC", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "CUSPARSE_MATRIX_TYPE_HERMITIAN",
+            ("HIPSPARSE_MATRIX_TYPE_HERMITIAN", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "CUSPARSE_MATRIX_TYPE_TRIANGULAR",
+            ("HIPSPARSE_MATRIX_TYPE_TRIANGULAR", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "CUSPARSE_FORMAT_CSR",
+            ("HIPSPARSE_FORMAT_CSR", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "CUSPARSE_FORMAT_CSC",
+            ("HIPSPARSE_FORMAT_CSC", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),	
+        (
+            "CUSPARSE_FORMAT_COO",
+            ("HIPSPARSE_FORMAT_COO", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "CUSPARSE_FORMAT_COO_AOS",
+            ("HIPSPARSE_FORMAT_COO_AOS", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "CUSPARSE_ORDER_ROW",
+            ("HIPSPARSE_ORDER_ROW", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "CUSPARSE_CSRMV_ALG1",
+            ("HIPSPARSE_CSRMV_ALG1", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),		
+        (
+            "CUSPARSE_CSRMV_ALG2",
+            ("HIPSPARSE_CSRMV_ALG2", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "CUSPARSE_INDEX_16U",
+            ("HIPSPARSE_INDEX_16U", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),	
+        (
+            "CUSPARSE_SPMAT_FILL_MODE",
+            ("HIPSPARSE_SPMAT_FILL_MODE", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),	
+        (
+            "CUSPARSE_SPMAT_DIAG_TYPE",
+            ("HIPSPARSE_SPMAT_DIAG_TYPE", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),	
+        (
+            "CUSPARSE_CSR2CSC_ALG1",
+            ("HIPSPARSE_CSR2CSC_ALG1", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),	
+        (
+            "CUSPARSE_CSR2CSC_ALG2",
+            ("HIPSPARSE_CSR2CSC_ALG2", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),	
+        (
+            "CUSPARSE_SPSM_ALG_DEFAULT",
+            ("HIPSPARSE_SPSM_ALG_DEFAULT", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
+        (
+            "CUSPARSE_SPARSETODENSE_ALG_DEFAULT",
+            ("HIPSPARSE_SPARSETODENSE_ALG_DEFAULT", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),	
+        (
+            "CUSPARSE_DENSETOSPARSE_ALG_DEFAULT",
+            ("HIPSPARSE_DENSETOSPARSE_ALG_DEFAULT", CONV_NUMERIC_LITERAL, API_SPECIAL),
+        ),
         #SOLVER
         ("cuComplex", ("hipComplex", CONV_TYPE, API_SPECIAL)),
         ("cuDoubleComplex", ("hipDoubleComplex", CONV_TYPE, API_SPECIAL)),
