@@ -7962,71 +7962,71 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
         ),
         (
             "cusparseGetErrorName",
-            ("hipsparseGetErrorName", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseGetErrorName", CONV_MATH_FUNC, API_SPECIAL),
         ),
         (
             "cusparseOrder_t",
-            ("hipsparseOrder_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseOrder_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "cusparseSpGEMMAlg_t",
-            ("hipsparseSpGEMMAlg_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseSpGEMMAlg_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "cusparseCsr2CscAlg_t",
-            ("hipsparseCsr2CscAlg_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseCsr2CscAlg_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "cusparseGetErrorString",
-            ("hipsparseGetErrorString", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseGetErrorString", CONV_MATH_FUNC, API_SPECIAL),
         ),
         (
             "cusparseGather",
-            ("hipsparseGather", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseGather", CONV_MATH_FUNC, API_SPECIAL),
         ),
         (
             "cusparseSparseToDenseAlg_t",
-            ("hipsparseSparseToDenseAlg_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseSparseToDenseAlg_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "cusparseDenseToSparseAlg_t",
-            ("hipsparseDenseToSparseAlg_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseDenseToSparseAlg_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "cusparseIndexBase_t",
-            ("hipsparseIndexBase_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseIndexBase_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "cusparseMatrixType_t",
-            ("hipsparseMatrixType_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseMatrixType_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "cusparsePointerMode_t",
-            ("hipsparsePointerMode_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparsePointerMode_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "cusparseAction_t",
-            ("hipsparseAction_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseAction_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "cusparseFormat_t",
-            ("hipsparseFormat_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseFormat_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "cusparseSpSMAlg_t",
-            ("hipsparseSpSMAlg_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseSpSMAlg_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "cusparseSpMatAttribute_t",
-            ("hipsparseSpMatAttribute_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseSpMatAttribute_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "cusparseSpVecDescr_t",
-            ("hipsparseSpVecDescr_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseSpVecDescr_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "cusparseSpSMDescr_t",
-            ("hipsparseSpSMDescr_t", CONV_NUMERIC_LITERAL, API_SPECIAL),
+            ("hipsparseSpSMDescr_t", CONV_TYPE, API_SPECIAL),
         ),
         (
             "CUSPARSE_POINTER_MODE_DEVICE",
