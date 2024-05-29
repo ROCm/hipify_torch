@@ -44,7 +44,9 @@ def main():
 
     w_file_obj = open(args.io_file, mode='w')
     for f in out_list:
-        w_file_obj.write(f+"\n")
+        if f is not None:
+            print(f)
+            w_file_obj.write(f+"\n")
     w_file_obj.close()
 
 if __name__ == "__main__":
