@@ -17,8 +17,9 @@ try:
         from hipify_torch.v2 import hipify_python
     else:
         from hipify_torch import hipify_python
-except:
+except Exception as e:
     print("failed to detect pytorch hipify version, defaulting to version 1.0.0 behavior")
+    print(e)
     from hipify_torch import hipify_python
 
 def main():
