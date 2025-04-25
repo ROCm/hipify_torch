@@ -62,6 +62,9 @@ HIPIFY_FINAL_RESULT: HipifyFinalResult = {}
 to their actual types."""
 PYTORCH_TEMPLATE_MAP = {"Dtype": "scalar_t", "T": "scalar_t"}
 
+# Custom mapping json file (default), if the file is not available hipify call doesn't process it.
+custom_mapping_file = "custom_hipify_mappings.json"
+
 __all__ = ['InputError', 'openf', 'bcolors', 'GeneratedFileCleaner', 'match_extensions', 'matched_files_iter',
            'preprocess_file_and_save_result', 'compute_stats', 'add_dim3', 'processKernelLaunches', 'find_closure_group',
            'find_bracket_group', 'find_parentheses_group', 'replace_math_functions', 'hip_header_magic', 'replace_extern_shared',
