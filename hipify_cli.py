@@ -10,7 +10,16 @@ import os
 import sys
 import argparse
 import json
-from hipify_torch import hipify_python
+try:
+    import torch
+    from packaging.version import Version
+    if Version(torch.utils.hipify.__version__) >= Version("2.0.0"):
+        from hipify_torch.v2 import hipify_python
+    else:
+        from hipify_torch import hipify_python
+except:
+    print("failed to detect pytorch hipify version, defaulting to version 1.0.0 behavior")
+    from hipify_torch import hipify_python
 
 def main():
     parser = argparse.ArgumentParser(
