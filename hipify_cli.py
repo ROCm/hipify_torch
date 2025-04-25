@@ -14,13 +14,11 @@ try:
     from torch.utils.hipify import __version__
     from packaging.version import Version
     if Version(__version__) >= Version("2.0.0"):
-        from hipify_torch.v2 import hipify_python
-    else:
-        from hipify_torch import hipify_python
+        v2_detected = True
 except Exception as e:
     print("failed to detect pytorch hipify version, defaulting to version 1.0.0 behavior")
     print(e)
-    from hipify_torch import hipify_python
+    v2_detected = False
 
 def main():
     parser = argparse.ArgumentParser(
@@ -79,6 +77,11 @@ def main():
         help="relative path of hipify config json which contains arguments to hipify",
         required=False)
 
+    parser.add_argument(
+        '--v2',
+        action='store_true',
+        help="use new behavior introduced in version 2, removing caffe2 mappings")
+
 
     args = parser.parse_args()
     if(args.config_json):
@@ -135,6 +138,11 @@ def main():
         hipify_extra_files_only = False
     dump_dict_file = args.dump_dict_file
     print("project_directory :",project_directory , " output_directory: ", output_directory, " includes: ", includes, " ignores: ", ignores, " header_include_dirs: ", header_include_dirs)
+
+    if args.v2 or v2_detected:
+        from hipify_torch.v2 import hipify_python
+    else:
+        from hipify_torch import hipify_python
 
     HipifyFinalResult = hipify_python.hipify(
         project_directory=project_directory,
