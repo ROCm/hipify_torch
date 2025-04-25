@@ -11,9 +11,9 @@ import sys
 import argparse
 import json
 try:
-    import torch
+    from torch.utils.hipify import __version__
     from packaging.version import Version
-    if Version(torch.utils.hipify.__version__) >= Version("2.0.0"):
+    if Version(__version__) >= Version("2.0.0"):
         from hipify_torch.v2 import hipify_python
     else:
         from hipify_torch import hipify_python
