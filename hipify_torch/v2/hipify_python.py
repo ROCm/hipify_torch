@@ -30,6 +30,7 @@ import re
 import shutil
 import sys
 import os
+import json
 
 from .cuda_to_hip_mappings import CUDA_TO_HIP_MAPPINGS
 from .cuda_to_hip_mappings import MATH_TRANSPILATIONS
