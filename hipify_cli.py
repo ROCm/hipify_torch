@@ -10,15 +10,17 @@ import os
 import sys
 import argparse
 import json
-try:
-    from torch.utils.hipify import __version__
-    from packaging.version import Version
-    if Version(__version__) >= Version("2.0.0"):
-        v2_detected = True
-except Exception as e:
-    print("failed to detect pytorch hipify version, defaulting to version 1.0.0 behavior")
-    print(e)
-    v2_detected = False
+
+def detect_hipify_v2():
+	try:
+		from torch.utils.hipify import __version__
+		from packaging.version import Version
+		if Version(__version__) >= Version("2.0.0"):
+            return True
+	except Exception as e:
+		print("failed to detect pytorch hipify version, defaulting to version 1.0.0 behavior")
+		print(e)
+    return False
 
 def main():
     parser = argparse.ArgumentParser(
@@ -139,7 +141,7 @@ def main():
     dump_dict_file = args.dump_dict_file
     print("project_directory :",project_directory , " output_directory: ", output_directory, " includes: ", includes, " ignores: ", ignores, " header_include_dirs: ", header_include_dirs)
 
-    if args.v2 or v2_detected:
+    if args.v2 or detect_hipify_v2():
         from hipify_torch.v2 import hipify_python
     else:
         from hipify_torch import hipify_python
