@@ -12,14 +12,14 @@ import argparse
 import json
 
 def detect_hipify_v2():
-	try:
-		from torch.utils.hipify import __version__
-		from packaging.version import Version
-		if Version(__version__) >= Version("2.0.0"):
+    try:
+        from torch.utils.hipify import __version__
+        from packaging.version import Version
+        if Version(__version__) >= Version("2.0.0"):
             return True
-	except Exception as e:
-		print("failed to detect pytorch hipify version, defaulting to version 1.0.0 behavior")
-		print(e)
+    except Exception as e:
+        print("failed to detect pytorch hipify version, defaulting to version 1.0.0 behavior")
+        print(e)
     return False
 
 def main():
