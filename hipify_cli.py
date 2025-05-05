@@ -10,7 +10,6 @@ import os
 import sys
 import argparse
 import json
-import warnings
 
 def detect_hipify_v2():
     try:
@@ -142,13 +141,10 @@ def main():
     dump_dict_file = args.dump_dict_file
     print("project_directory :",project_directory , " output_directory: ", output_directory, " includes: ", includes, " ignores: ", ignores, " header_include_dirs: ", header_include_dirs)
 
-    msg = "hipify's version 2 behavior will become the default in a later version of torch"
     if args.v2 or detect_hipify_v2():
         from hipify_torch.v2 import hipify_python
-        warnings.warn(f"you are using hipify version 2. {msg}", FutureWarning)
     else:
         from hipify_torch import hipify_python
-        warnings.warn(f"you are using hipify version 1. {msg}", FutureWarning)
 
     HipifyFinalResult = hipify_python.hipify(
         project_directory=project_directory,
