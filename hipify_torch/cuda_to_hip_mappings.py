@@ -5040,7 +5040,7 @@ CUDA_IDENTIFIER_MAP = collections.OrderedDict(
         ),
         ("cudaLaunch", ("hipLaunch", CONV_EXEC, API_RUNTIME, HIP_UNSUPPORTED)),
         (
- 	    "cudaLaunchCooperativeKernel", 
+ 	    "cudaLaunchCooperativeKernel",
 	    ("hipLaunchCooperativeKernel", CONV_EXEC, API_RUNTIME),
         ),
         (
@@ -8059,7 +8059,7 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
         (
             "CUSPARSE_FORMAT_CSC",
             ("HIPSPARSE_FORMAT_CSC", CONV_NUMERIC_LITERAL, API_SPECIAL),
-        ),	
+        ),
         (
             "CUSPARSE_FORMAT_COO",
             ("HIPSPARSE_FORMAT_COO", CONV_NUMERIC_LITERAL, API_SPECIAL),
@@ -8075,7 +8075,7 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
         (
             "CUSPARSE_CSRMV_ALG1",
             ("HIPSPARSE_CSRMV_ALG1", CONV_NUMERIC_LITERAL, API_SPECIAL),
-        ),		
+        ),
         (
             "CUSPARSE_CSRMV_ALG2",
             ("HIPSPARSE_CSRMV_ALG2", CONV_NUMERIC_LITERAL, API_SPECIAL),
@@ -8083,23 +8083,23 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
         (
             "CUSPARSE_INDEX_16U",
             ("HIPSPARSE_INDEX_16U", CONV_NUMERIC_LITERAL, API_SPECIAL),
-        ),	
+        ),
         (
             "CUSPARSE_SPMAT_FILL_MODE",
             ("HIPSPARSE_SPMAT_FILL_MODE", CONV_NUMERIC_LITERAL, API_SPECIAL),
-        ),	
+        ),
         (
             "CUSPARSE_SPMAT_DIAG_TYPE",
             ("HIPSPARSE_SPMAT_DIAG_TYPE", CONV_NUMERIC_LITERAL, API_SPECIAL),
-        ),	
+        ),
         (
             "CUSPARSE_CSR2CSC_ALG1",
             ("HIPSPARSE_CSR2CSC_ALG1", CONV_NUMERIC_LITERAL, API_SPECIAL),
-        ),	
+        ),
         (
             "CUSPARSE_CSR2CSC_ALG2",
             ("HIPSPARSE_CSR2CSC_ALG2", CONV_NUMERIC_LITERAL, API_SPECIAL),
-        ),	
+        ),
         (
             "CUSPARSE_SPSM_ALG_DEFAULT",
             ("HIPSPARSE_SPSM_ALG_DEFAULT", CONV_NUMERIC_LITERAL, API_SPECIAL),
@@ -8107,7 +8107,7 @@ CUDA_SPECIAL_MAP = collections.OrderedDict(
         (
             "CUSPARSE_SPARSETODENSE_ALG_DEFAULT",
             ("HIPSPARSE_SPARSETODENSE_ALG_DEFAULT", CONV_NUMERIC_LITERAL, API_SPECIAL),
-        ),	
+        ),
         (
             "CUSPARSE_DENSETOSPARSE_ALG_DEFAULT",
             ("HIPSPARSE_DENSETOSPARSE_ALG_DEFAULT", CONV_NUMERIC_LITERAL, API_SPECIAL),
@@ -8612,6 +8612,7 @@ C10_MAPPINGS = collections.OrderedDict(
         ("c10::cuda::CUDAAllocator", ("c10::hip::HIPAllocator", API_C10)),
         ("cuda::CUDAAllocator", ("hip::HIPAllocator", API_C10)),
         ("CUDAAllocator", ("HIPAllocator", API_C10)),
+        ("CUDAKernelLaunchRegistry", ("HIPKernelLaunchRegistry", API_C10)),
         ("C10_CUDA_KERNEL_LAUNCH_CHECK", ("C10_HIP_KERNEL_LAUNCH_CHECK", API_C10))
     ]
 )
