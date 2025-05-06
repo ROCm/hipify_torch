@@ -14,7 +14,7 @@ cmd_class = {
 
 setup(
     name='hipify_torch',
-    version='1.0',
+    version='1.1.0',
     cmdclass=cmd_class,
     packages=['hipify_torch',],
     long_description=open('README.md').read(),
