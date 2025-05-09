@@ -33,14 +33,26 @@ def main():
     hipified_result = json.loads(json_string)
 
     out_list = []
+    visited = {}
     with open(args.io_file) as inp_file:
         for line in inp_file:
             line = line.strip()
             line = os.path.abspath(line)
             if line in hipified_result:
-                out_list.append(hipified_result[line]['hipified_path'])
+                item = hipified_result[line]['hipified_path']
+                if item in visited:
+                    print("dup1:      ", item)
+                else:
+                    print("hipified:  ", item)
+                    out_list.append(item)
+                visited[item] = None
             else:
-                out_list.append(line)
+                if line in visited:
+                    print("dup2:      ", line)
+                else:
+                    print("untouched: ", line)
+                    out_list.append(line)
+                visited[line] = None
 
     w_file_obj = open(args.io_file, mode='w')
     for f in out_list:
