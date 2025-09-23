@@ -2,21 +2,6 @@ import collections
 
 """ Mapping of CUDA functions, include files, constants, and types to ROCm/HIP equivalents """
 
-# List of math functions that should be replaced inside device code only.
-MATH_TRANSPILATIONS = collections.OrderedDict([
-    ("std::max", ("::max")),
-    ("std::min", ("::min")),
-    ("std::ceil", ("::ceil")),
-    ("std::floor", ("::floor")),
-    ("std::exp", ("::exp")),
-    ("std::log", ("::log")),
-    ("std::pow", ("::pow")),
-    ("std::fabs", ("::fabs")),
-    ("std::fmod", ("::fmod")),
-    ("std::remainder", ("::remainder")),
-    ("std::frexp", ("::frexp")),
-])
-
 CUDA_TYPE_NAME_MAP = collections.OrderedDict([
     ("CUresult", "hipError_t"),
     ("cudaError_t", "hipError_t"),
