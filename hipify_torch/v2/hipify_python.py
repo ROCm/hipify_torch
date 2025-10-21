@@ -205,12 +205,13 @@ def preprocess_file_and_save_result(
         hip_clang_launch: bool,
         is_pytorch_extension: bool,
         clean_ctx: GeneratedFileCleaner,
-        show_progress: bool) -> None:
+        show_progress: bool,
+        no_math_replace: bool,) -> None:
     fin_path = os.path.abspath(os.path.join(output_directory, filepath))
     hipify_result = HipifyResult(current_state=CurrentState.INITIALIZED, hipified_path=fin_path)
     HIPIFY_FINAL_RESULT[fin_path] = hipify_result
     result = preprocessor(output_directory, filepath, all_files, header_include_dirs, stats,
-                          hip_clang_launch, is_pytorch_extension, clean_ctx, show_progress)
+                          hip_clang_launch, is_pytorch_extension, clean_ctx, show_progress, no_math_replace)
 
     # Show what happened
     if show_progress and "ignored" not in result.status:
@@ -757,7 +758,8 @@ def preprocessor(
         hip_clang_launch: bool,
         is_pytorch_extension: bool,
         clean_ctx: GeneratedFileCleaner,
-        show_progress: bool) -> HipifyResult:
+        show_progress: bool,
+        no_math_replace: bool,) -> HipifyResult:
     """ Executes the CUDA -> HIP conversion on the specified file. """
     fin_path = os.path.abspath(os.path.join(output_directory, filepath))
     filepath = _to_unix_path(filepath)
@@ -843,7 +845,7 @@ def preprocessor(
                     preprocess_file_and_save_result(output_directory,
                                                     header_filepath,
                                                     all_files, header_include_dirs, stats, hip_clang_launch,
-                                                    is_pytorch_extension, clean_ctx, show_progress)
+                                                    is_pytorch_extension, clean_ctx, show_progress, no_math_replace)
                 elif header_filepath in HIPIFY_FINAL_RESULT:
                     header_result = HIPIFY_FINAL_RESULT[header_filepath]
                     if header_result.current_state == CurrentState.INITIALIZED:
@@ -876,7 +878,9 @@ def preprocessor(
         output_source = processKernelLaunches(output_source, stats)
 
     # Replace std:: with non-std:: versions
-    if (filepath.endswith((".cu", ".cuh"))) and "PowKernel" not in filepath:
+    if (not no_math_replace
+        and filepath.endswith((".cu", ".cuh"))
+        and "PowKernel" not in filepath):
         output_source = replace_math_functions(output_source)
 
     # Include header if device code is contained.
@@ -1028,7 +1032,8 @@ def hipify(
     hip_clang_launch: bool = False,
     is_pytorch_extension: bool = False,
     hipify_extra_files_only: bool = False,
-    clean_ctx: Optional[GeneratedFileCleaner] = None
+    clean_ctx: Optional[GeneratedFileCleaner] = None,
+    no_math_replace: bool = False,
 ) -> HipifyFinalResult:
     if project_directory == "":
         project_directory = os.getcwd()
@@ -1098,7 +1103,8 @@ def hipify(
 
     for filepath in (all_files if not hipify_extra_files_only else extra_files):
         preprocess_file_and_save_result(output_directory, filepath, all_files, header_include_dirs,
-                                        stats, hip_clang_launch, is_pytorch_extension, clean_ctx, show_progress)
+                                        stats, hip_clang_launch, is_pytorch_extension, clean_ctx,
+                                        show_progress, no_math_replace)
 
     print(bcolors.OKGREEN + "Successfully preprocessed all matching files." + bcolors.ENDC, file=sys.stderr)
 
