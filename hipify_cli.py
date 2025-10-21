@@ -84,6 +84,12 @@ def main():
         action='store_true',
         help="use new behavior introduced in version 2, removing caffe2 mappings")
 
+    parser.add_argument(
+        '--no-math-replace',
+        action='store_true',
+        help="Skip replacing std:: math functions in device code. Performance is not guaranteed.",
+        required=False)
+
 
     args = parser.parse_args()
     if(args.config_json):
@@ -135,6 +141,7 @@ def main():
             else args.ignores.strip("[]").split(";")
         header_include_dirs=args.header_include_dirs if type(args.header_include_dirs) is list \
             else args.header_include_dirs.strip("[]").split(";")
+        no_math_replace=args.no_math_replace
         custom_map_list=args.custom_map_json or ""
         extra_files = []
         hipify_extra_files_only = False
@@ -156,7 +163,8 @@ def main():
         extra_files=extra_files,
         is_pytorch_extension=True,
         hipify_extra_files_only=hipify_extra_files_only,
-        show_detailed=True)
+        show_detailed=True,
+        no_math_replace=no_math_replace)
 
     if dump_dict_file:
         with open(dump_dict_file, 'w') as dict_file:
