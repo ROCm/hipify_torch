@@ -3,7 +3,7 @@
 """ The Python Hipify script.
 ##
 # Copyright (c) 2015-2016 Advanced Micro Devices, Inc. All rights reserved.
-#               2017-2025 Advanced Micro Devices, Inc. and
+#               2017-2026 Advanced Micro Devices, Inc. and
 #                         Facebook Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -207,6 +207,9 @@ def preprocess_file_and_save_result(
         clean_ctx: GeneratedFileCleaner,
         show_progress: bool) -> None:
     fin_path = os.path.abspath(os.path.join(output_directory, filepath))
+    if fin_path in HIPIFY_FINAL_RESULT:
+        #the file has already been hipified as include to another file, no need to hipify again.
+        return
     hipify_result = HipifyResult(current_state=CurrentState.INITIALIZED, hipified_path=fin_path)
     HIPIFY_FINAL_RESULT[fin_path] = hipify_result
     result = preprocessor(output_directory, filepath, all_files, header_include_dirs, stats,
