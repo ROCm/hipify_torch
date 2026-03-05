@@ -74,7 +74,7 @@ endfunction()
 # - CONFIG_FILE --> JSON format file, which provides additional arguments for hipify_cli.py file.
 #                   When set, it is having higher precendence over CUDA_SOURCE_DIR/HIP_SOURCE_DIR.
 function(hipify)
-  set(flags)
+  set(flags V2)
   set(singleValueArgs CUDA_SOURCE_DIR HIP_SOURCE_DIR CONFIG_FILE CUSTOM_MAP_FILE)
   set(multiValueArgs HEADER_INCLUDE_DIR IGNORES)
 
@@ -100,6 +100,9 @@ function(hipify)
     )
     if (HIPIFY_CUSTOM_MAP_FILE)
       list(APPEND HIPIFY_COMMAND --custom-map-json ${HIPIFY_CUSTOM_MAP_FILE})
+    endif()
+    if (HIPIFY_V2)
+      list(APPEND HIPIFY_COMMAND --v2)
     endif()
   else()
     message(FATAL_ERROR "Wrong invocation, either CUDA_SOURCE_DIR or CONFIG_FILE input parameter is required")
