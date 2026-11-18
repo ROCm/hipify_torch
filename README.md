@@ -60,6 +60,9 @@ hipify_cli.py takes arguments through command line or a json file(hipify_config.
 ```
 python hipify_cli.py --config-json hipify_config.json
 ```
+To include Cython sources, pass `--extra-extensions .pyx .pxd` on the command line or set
+`"extra_extensions": [".pyx", ".pxd"]` in the config file.
+
 hipify_config.json
 ```json
 {

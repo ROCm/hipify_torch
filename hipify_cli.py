@@ -61,6 +61,12 @@ def main():
         required=False)
 
     parser.add_argument(
+        '--extra-extensions',
+        nargs='+',
+        default=[],
+        help="Additional source file extensions to hipify (e.g. .pyx .pxd)")
+
+    parser.add_argument(
         '--custom-map-json',
         type=str,
         help="path of json which contains project specific hipifying mappings",
@@ -111,6 +117,11 @@ def main():
                 else:
                     ignores = []
                 custom_map_list=json_args.get("custom_map_json", "")
+                extra_extensions = json_args.get('extra_extensions', [])
+                if not isinstance(extra_extensions, list) or not all(
+                    isinstance(ext, str) for ext in extra_extensions
+                ):
+                    raise ValueError('extra_extensions must be a list of file extensions')
                 if(json_args.get('extra_files') is not None):
                     extra_files = json_args['extra_files']
                 else:
@@ -136,6 +147,7 @@ def main():
         header_include_dirs=args.header_include_dirs if type(args.header_include_dirs) is list \
             else args.header_include_dirs.strip("[]").split(";")
         custom_map_list=args.custom_map_json or ""
+        extra_extensions = args.extra_extensions
         extra_files = []
         hipify_extra_files_only = False
     dump_dict_file = args.dump_dict_file
@@ -154,6 +166,7 @@ def main():
         header_include_dirs=header_include_dirs,
         custom_map_list=custom_map_list,
         extra_files=extra_files,
+        extra_extensions=tuple(extra_extensions),
         is_pytorch_extension=True,
         hipify_extra_files_only=hipify_extra_files_only,
         show_detailed=True)
